@@ -10,7 +10,7 @@ export default function Navbar() {
     <div className="flex justify-between min-h-20 items-center px-0 md:px-6">
     <Link href="/" > <h1 className='text-[#359487] dark:text-[#C6FE02] font-bold text-xl md:text-2xl'>QuickQueue</h1></Link> 
       <div className="flex justify-between items-center gap-3">
-      <Link href="/register" > <Button className="my-5 bg-[#359487] dark:bg-white">   Add Your Business <FaArrowRight />  </Button></Link>
+      <Link href="/login" > <Button className="my-5 bg-[#359487] dark:bg-white">   Login <FaArrowRight />  </Button></Link>
       <ThemeToggle/>
 
       </div>

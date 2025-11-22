@@ -7,7 +7,7 @@ export default function Home() {
     
     <div className="container mx-auto pt-5">
 <div className="flex flex-wrap justify-evenly items-center pt-5">
-   <div className="w-full md:w-1/2 px-5 pt-5 text-center">
+   <div className="w-full md:w-1/2 px-5 pt-5 text-center  md:text-left">
    <h1 className="text-3xl md:text-5xl font-bold dark:text-[#C6FE02]">
     Skip the Wait, Book Your Spot
    </h1>

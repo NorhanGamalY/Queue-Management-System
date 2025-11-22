@@ -5,7 +5,7 @@ import React from 'react'
 export default function NotFound() {
   return (
     <>
-    .
+    
     <div class="container flex flex-wrap justify-center items-center  mx-auto">
         <div className="pt-5 text-center">
             <img className='pt-5' src='./error.png' alt='error'/>

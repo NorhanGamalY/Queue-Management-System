@@ -1,69 +1,101 @@
 import CardLists from "@/components/CardLists";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { CiSearch } from "react-icons/ci";
 
 export default function Home() {
   return (
     <>
-      <div className="min-h-screen bg-[#F3F3F3] text-black dark:bg-[#221F1B] dark:text-white transition-all duration-300 ">
-        <div className="container mx-auto pt-5 h-full">
-          <div className="flex flex-wrap justify-evenly items-center pt-5">
-            <div className="w-full lg:w-1/2 px-5 pt-5 text-center">
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold dark:text-[#C6FE02]">
-                Skip the Wait, Book Your Spot
-              </h1>
-              <h5 className="py-5 text-[#359487] text-2xl lg:text-3xl xl:text-3xl font-semibold dark:text-white">
-                Manage Queues Intelligently
-              </h5>
-              <div className="flex justify-center">
-                <p className="w-3/4">
-                  Find and book appointments at clinics, banks, telecom centers,
-                  and more. Manage your time efficiently with our smart queue
-                  system
-                </p>
+      <div className="pb-20 min-h-screen bg-[#F3F3F3] text-black dark:bg-[#221F1B] dark:text-white transition-all duration-300">
+        <div className="container w-full px-4 sm:px-6 lg:w-11/12 mx-auto">
+          
+          <div className="relative">
+            <h1 className="pt-10 text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-center text-[#359487] font-bold dark:text-[#C6FE02] dark:drop-shadow-[0_0_10px_rgba(198,254,2,0.5)] drop-shadow-[0_0_10px_rgba(30,240,220,0.7)] big-scale">
+              Skip the Wait, Book Your Spot
+            </h1>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center justify-center pt-5 lg:pt-10 gap-8 lg:gap-0">
+              
+              <div className="lg:col-span-1 px-4 sm:px-5 text-center flex flex-col justify-center order-2 lg:order-1">
+                
+                <div className="mb-6 lg:mb-8 hidden sm:block">
+                  <div className="flex items-center justify-center gap-4 sm:gap-5 lg:gap-7">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-[#359487] dark:bg-[#b4f221] animate-pulse"></div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-[#359487] dark:bg-[#b4f221] animate-pulse" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-[#359487] dark:bg-[#b4f221] animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-[#359487] dark:bg-[#b4f221] animate-pulse" style={{animationDelay: '0.7s'}}></div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-[#359487] dark:bg-[#b4f221] animate-pulse" style={{animationDelay: '1s'}}></div>
+                  </div>
+                </div>
+
+                <h5 className="py-3 sm:py-4 lg:py-5 text-2xl sm:text-3xl font-semibold text-[#359487] dark:text-[#21bcb8]">
+                  Manage Queues Intelligently
+                </h5>
+                
+                <div className="flex justify-center">
+                  <p className="w-full sm:w-11/12 text-sm sm:text-base text-gray-600 dark:text-gray-300 px-2">
+                    Find and book appointments at clinics, banks, telecom centers,
+                    and more. Manage your time efficiently with our smart queue
+                    system
+                  </p>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-5">
+                  <button className="cursor-pointer w-full sm:w-auto bg-[#359487] px-6 py-2.5 rounded-md text-white font-medium hover:bg-[#2a8074] dark:bg-[#C6FE02] dark:text-black dark:hover:bg-[#9dc704] transition-colors">
+                    Book an Appointment
+                  </button>
+                  <button className="cursor-pointer w-full sm:w-auto bg-transparent border-2 text-[#359487] border-[#359487] hover:bg-[#359487] hover:text-white dark:bg-transparent dark:border-[#C6FE02] dark:text-[#C6FE02] dark:hover:bg-[#C6FE02] dark:hover:text-[#221F1B] px-6 py-2.5 rounded-md font-medium transition-colors">
+                    Add Your Business
+                  </button>
+                </div>
               </div>
-              <Button className="my-5 bg-[#359487] dark:bg-white">
-                Book an Appointment
-              </Button>
-            </div>
-              <div className="w-full lg:w-1/3 px-5 flex justify-center">
-              <Image
-                width={472}
-                height={472}
-                src="/./header.png"
-                className="w-3/4 lg:w-full bg-[#F3F3F3] dark:bg-[#221F1B] hidden dark:block"
-                alt="header"
-              />
-              <Image
-                width={472}
-                height={472}
-                src="/./bg.png"
-                className="w-3/4 lg:w-full bg-[#F3F3F3] dark:bg-[#221F1B] dark:hidden"
-                alt="header"
-              />
+              
+              <div className="lg:col-span-2 w-full px-4 sm:px-5 flex justify-center items-center order-1 lg:order-2">
+                <div className="w-full max-w-md lg:max-w-none lg:w-10/12">
+                  <Image
+                    width={600}
+                    height={600}
+                    src="/./landingLight.png"
+                    className="w-full h-auto dark:hidden object-contain"
+                    alt="Queue management illustration"
+                    priority
+                  />
+                  <Image
+                    width={600}
+                    height={600}
+                    src="/./landingDark.png"
+                    className="w-full h-auto hidden dark:block object-contain"
+                    alt="Queue management illustration"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="text-center mt-20">
-            <h1 className="text-3xl pb-3">Available Services</h1>
-            <p>Browse and book your spot at various locations</p>
+          
+          <div className="text-center mt-16 sm:mt-20 lg:mt-24 px-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-3xl font-semibold pb-3">Available Services</h2>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Browse and book your spot at various locations</p>
           </div>
-          <form className="mt-5 flex items-center max-w-sm mx-auto space-x-2">
-            <label htmlFor="simple-search" className="sr-only">Search</label>
+          
+          
+          <div className="mt-6 sm:mt-8 flex items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto space-x-2 px-4">
             <div className="relative w-full">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3" /></svg>
-              </div>
-              <input type="text" id="simple-search" className="rounded-xl px-3 py-2.5 bg-neutral-secondary-medium border border-gray-300 rounded-base ps-9 text-heading text-sm focus:ring-brand focus:border-brand block w-full placeholder:text-body" placeholder="Search branch name..." required />
+              <input 
+                type="text" 
+                id="simple-search" 
+                className="rounded-xl px-3 sm:px-4 py-2.5 bg-white dark:bg-[#2b2825] border border-gray-300 dark:border-gray-600 text-sm sm:text-base focus:ring-2 focus:ring-[#359487] dark:focus:ring-[#C6FE02] focus:border-transparent block w-full placeholder:text-gray-400" 
+                placeholder="Search Business name..." 
+              />
             </div>
-            <button type="submit" className="dark:bg-[#C6FE02] dark:text-black bg-[#359487] rounded-xl inline-flex items-center justify-center shrink-0 text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs rounded-base w-10 h-10 focus:outline-none">
-              <CiSearch size={20}/>
+            <button className="cursor-pointer dark:bg-[#C6FE02] dark:text-black bg-[#359487] rounded-xl inline-flex items-center justify-center shrink-0 text-white hover:bg-[#2a8074] dark:hover:bg-[#a7d404] focus:ring-4 focus:ring-[#359487]/30 dark:focus:ring-[#C6FE02]/30 shadow-sm w-10 h-10 sm:w-11 sm:h-11 focus:outline-none transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </button>
-          </form>
-          <div className="mt-15">
+          </div>
+          
+          <div className="mt-10 sm:mt-12 lg:mt-16 px-4 pb-10">
             <CardLists/>
           </div>
-
         </div>
       </div>
     </>

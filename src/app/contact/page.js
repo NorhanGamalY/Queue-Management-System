@@ -20,7 +20,7 @@ const Page = () => {
         console.log(val);
     }
     return ( 
-        <div className="bg-[#F3F3F3] dark:bg-gradient-to-b dark:from-[#181715] dark:to-[#1F1D1A]"> 
+        <div className="pb-20 bg-[#F3F3F3] dark:bg-gradient-to-b dark:from-[#181715] dark:to-[#1F1D1A]"> 
             <div className="text-center pt-10 mb-10"> 
                 <h1 className="md:text-6xl text-5xl pb-5 dark:text-[#C6FE02] dark:drop-shadow-[0_0_10px_rgba(198,254,2,0.5)]">
                     Get in Touch

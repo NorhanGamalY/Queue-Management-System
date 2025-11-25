@@ -3,6 +3,44 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes bigScale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.big-scale {
+  animation: bigScale 2s ease-in-out infinite;
+}
+
+@keyframes swing-left {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-25px) rotate(-8deg); }
+}
+
+@keyframes swing-right {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(25px) rotate(8deg); }
+}
+.swing-right {
+  animation: swing-right 2s ease-in-out infinite;
+}
+.swing-left {
+  animation: swing-left 2s ease-in-out infinite;
+}
+
+
+.card-slide.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

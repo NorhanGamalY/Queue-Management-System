@@ -11,88 +11,72 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <>
-      <div className="min-h-[90.2vh] bg-white text-black dark:bg-[#221F1B] dark:text-white transition-all duration-300 flex items-center justify-center p-4 md:p-10">
-        
-        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#F3F3F3] dark:bg-black shadow-lg rounded-2xl p-4 md:p-8">
-          
-          <div className="flex justify-center items-center">
-            <Image
-              src="/register7.png"
-              width={500}
-              height={500}
-              className="w-3/4 md:w-full object-contain"
-              alt="Image"
-            />
-          </div>
-
-          <div className="md:ps-10 text-center md:text-left">
-            
-            <p className="text-2xl font-bold py-3">Welcome Back</p>
-            <span className="block mb-6">Log in to access your dashboard.</span>
-
-            <Tabs defaultValue="account" className="w-full">
-              
-              <TabsList className="bg-[#ECECF0] dark:bg-[#171717] mb-4 flex w-full">
-                <TabsTrigger className="w-1/2" value="account">
-                  <IoPersonCircleSharp />
-                  Customer
-                </TabsTrigger>
-
-                <TabsTrigger className="w-1/2" value="business">
-                  <MdOutlineAddBusiness />
-                  Business
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="account">
-                <div className="grid gap-4">
-                  <Label htmlFor="Customer-email">
-                    <MdOutlineMailLock />
-                    Email
-                  </Label>
-                  <Input className="bg-[#ECECF0]" id="Customer-email" placeholder="email@example.com" />
-
-                  <Label htmlFor="Customer-password">
-                    <RiLockPasswordLine />
-                    Password
-                  </Label>
-                  <Input className="bg-[#ECECF0]" id="Customer-password" placeholder="password" />
-
-                  <Button className="w-full mt-2">Login</Button>
-
-                  <div className="text-center mt-2">
-                    <span>Don't have an account? <Link className='font-bold' href="./login/customerregister">Sign Up </Link></span>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="business">
-                <div className="grid gap-4">
-                  <Label htmlFor="Business-email">
-                    <MdOutlineMailLock />
-                    Business Email
-                  </Label>
-                  <Input className="bg-[#ECECF0]" id="Business-email" placeholder="business@example.com" />
-
-                  <Label htmlFor="Business-password">
-                    <RiLockPasswordLine />
-                    Password
-                  </Label>
-                  <Input className="bg-[#ECECF0]" id="Business-password" placeholder="password" />
-
-                  <Button className="w-full mt-2">Login to Dashboard</Button>
-
-                  <div className="text-center mt-2">
-                    <span>Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up </Link></span>
-                  </div>
-                </div>
-              </TabsContent>
-
-            </Tabs>
-          </div>
-        </div>
+    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 dark:bg-[#221F1B]">
+      
+      <div className="relative w-full h-full bg-[#287b70] py-15 md:py-0 dark:bg-black">
+        <Image
+          src="/register7.png"
+          fill
+          className="object-contain w-full h-full"
+          alt="Login visual"
+        />
       </div>
-    </>
-  )
+
+      <div className="flex flex-col justify-center px-10 bg-white xl:w-2/3 w-full items-center mx-auto dark:bg-[#221F1B]">
+
+        <h2 className="text-3xl font-bold mb-2 text-[#29b7a4]">Login Account</h2>
+        <p className="mb-8 text-gray-500 text-center dark:text-white">
+          Log in to access your dashboard and manage your account.
+        </p>
+
+        <Tabs defaultValue="account" className="w-full">
+
+          <TabsList className="bg-[#ECECF0] mb-6 flex w-full dark:bg-[#37332f] dark:text-white">
+            <TabsTrigger className="w-1/2" value="account">
+              <IoPersonCircleSharp />
+              Customer
+            </TabsTrigger>
+
+            <TabsTrigger className="w-1/2" value="business">
+              <MdOutlineAddBusiness />
+              Business
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="account">
+            <div className="grid gap-4">
+              <Label>Email</Label>
+              <Input className="bg-[#ECECF0]" placeholder="email@example.com" />
+
+              <Label>Password</Label>
+              <Input className="bg-[#ECECF0]" placeholder="password" />
+
+              <Button className="w-full mt-2">Login</Button>
+
+              <p className="text-center mt-2">
+                Don't have an account? <Link className='font-bold' href="./login/customerregister">Sign Up</Link>
+              </p>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="business">
+            <div className="grid gap-4">
+              <Label>Business Email</Label>
+              <Input className="bg-[#ECECF0]" placeholder="business@example.com" />
+
+              <Label>Password</Label>
+              <Input className="bg-[#ECECF0]" placeholder="password" />
+
+              <Button className="w-full mt-2">Login to Dashboard</Button>
+
+              <p className="text-center mt-2">
+                Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up</Link>
+              </p>
+            </div>
+          </TabsContent>
+
+        </Tabs>
+      </div>
+    </div>
+  );
 }

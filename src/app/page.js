@@ -70,30 +70,6 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <Button className="my-5 bg-[#359487] dark:bg-white">
-                Book an Appointment
-              </Button>
-              <Link href="/login/businessregister" >
-                            <Button className="my-5 ms-3 bg-[#359487] dark:bg-white">
-                              Add Your Business
-                            </Button>
-                          </Link>
-            </div>
-              <div className="w-full lg:w-1/3 px-5 flex justify-center">
-              <Image
-                width={472}
-                height={472}
-                src="/./header.png"
-                className="w-3/4 lg:w-full bg-[#F3F3F3] dark:bg-[#221F1B] hidden dark:block"
-                alt="header"
-              />
-              <Image
-                width={472}
-                height={472}
-                src="/./bg.png"
-                className="w-3/4 lg:w-full bg-[#F3F3F3] dark:bg-[#221F1B] dark:hidden"
-                alt="header"
-              />
             </div>
           </div>
           

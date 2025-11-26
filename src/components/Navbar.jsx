@@ -28,7 +28,7 @@ export default function Navbar() {
             </ul>
 
             <Link href="/login" >
-              <Button className="my-5 bg-[#359487] dark:bg-white dark:hover:bg-[#ececec]">
+              <Button className="my-5 bg-[#359487] dark:bg-white">
                 Login <FaArrowRight />
               </Button>
             </Link>

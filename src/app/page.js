@@ -28,7 +28,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <h5 className="py-3 sm:py-4 lg:py-5 text-2xl sm:text-3xl font-semibold text-[#359487] dark:text-[#21bcb8]">
+                <h5 className="py-3 sm:py-4 lg:py-5 text-2xl sm:text-3xl font-semibold text-[#359487] dark:text-[white]">
                   Manage Queues Intelligently
                 </h5>
                 

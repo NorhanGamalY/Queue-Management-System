@@ -35,9 +35,9 @@ const CardLists = ({ searchResults, isSearching }) => {
                 <p className="text-gray-500 dark:text-gray-400 text-lg">
                     Use the search box above to find businesses
                 </p>
-                <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+                {/* <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
                     Try searching for: قلب, عيون, بنك, فودافون
-                </p>
+                </p> */}
             </div>
         );
     }

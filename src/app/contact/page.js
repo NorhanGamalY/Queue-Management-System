@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from '@/components/ui/button'; 
-import React, { useState } from 'react'; 
+import React, { useState, useRef } from 'react'; 
 import { FiMessageSquare, FiPhone, FiSend } from "react-icons/fi"; 
 import { IoMdTime } from 'react-icons/io'; 
 import { MdOutlineEmail } from "react-icons/md"; 
@@ -9,16 +9,93 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea"
+// import emailjs from '@emailjs/browser';
+
 
 const Page = () => {
-    const [val, setVal] = useState({fname: "", lname: "", email: "", phone: "", message: ""});
-    const handleChange = (e) => {
-        setVal({...val, [e.target.name]: e.target.value})
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(val);
-    }
+    const form = useRef();
+    const [toast, setToast] = useState({ show: false, type: "success", message: "" });
+
+    const showToast = (type, message) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => {
+    setToast((t) => ({ ...t, show: false }));
+    }, 3000); 
+    };
+
+    const nameRegex = /^[\p{L}\s]{3,30}$/u; 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{11}$/;
+    const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: ""
+    });
+
+//     const sendEmail = (e) => {
+//     e.preventDefault();
+
+//     const firstName = form.current.name.value.trim();
+//     const lastName = form.current.last_name.value.trim();
+//     const email = form.current.user_email.value.trim();
+//     const phone = form.current.user_phone.value.trim();
+//     const message = form.current.message.value.trim();
+
+//     const newErrors = { firstName: "", lastName: "", email: "", phone: "", message: "" };
+//     let hasError = false;
+
+//     if (!nameRegex.test(firstName)) {
+//     newErrors.firstName = "Please enter a valid first name.";
+//     hasError = true;
+//     }
+
+//     if (!nameRegex.test(lastName)) {
+//     newErrors.lastName = "Please enter a valid last name.";
+//     hasError = true;
+//     }
+
+//     if (!emailRegex.test(email)) {
+//     newErrors.email = "Please enter a valid email address.";
+//     hasError = true;
+//     }
+
+//     if (!phoneRegex.test(phone)) {
+//     newErrors.phone = "Please enter a valid phone number.";
+//     hasError = true;
+//     }
+
+//     if (message.length < 10) {
+//     newErrors.message = "Message should be at least 10 characters.";
+//     hasError = true;
+//     }
+
+//     setErrors(newErrors);
+
+//     if (hasError) return;
+
+//     emailjs
+//     .send(
+//     "service_stzzgp7", 
+//     "template_0l6hqcg", 
+//     {
+//         name: name,
+//         user_phone: phone,
+//         user_email: email,
+//         message: message
+//     },
+//     "aFgvqEvdcPcxOsnQn" 
+//     )
+//     .then(() => {
+//     showToast("success", "Message sent successfully!");
+//     form.current.reset();
+//     })
+//     .catch((error) => {
+//     console.log(error);
+//     showToast("error", "Something went wrong, please try again.");
+//     });
+// };
     return ( 
         <div className="pb-20 bg-[#F3F3F3] dark:bg-gradient-to-b dark:from-[#181715] dark:to-[#1F1D1A]"> 
             <div className="text-center pt-10 mb-10"> 
@@ -30,9 +107,16 @@ const Page = () => {
                 </p> 
             </div> 
 
+            {toast.show && (
+            <div  className={`fixed top-5 md:top-10 left-[23%] md:left-[43%] w-1/2 md:w-1/6 mx-auto z-50 px-4 py-3 rounded-lg shadow-lg text-sm
+                ${toast.type === "success" ? "bg-green-600" : "bg-red-600"}`}>
+                {toast.message}
+            </div>
+            )}
+
             <div className='lg:grid lg:grid-cols-3 mx-6 gap-8'>
                 <form 
-                    onSubmit={handleSubmit}
+            // onSubmit={sendEmail} ref={form}                    
                     className="
                         border border-gray-300
                         dark:border-[#3A3734]
@@ -53,9 +137,7 @@ const Page = () => {
                         <div> 
                             <Label htmlFor="Customer-fName" className='block font-medium mb-2 dark:text-white'>First Name *</Label> 
                             <Input
-                                value={val.fname}
-                                onChange={handleChange}
-                                name="fname"
+                                name="name"
                                 id="Customer-fName"
                                 type='text' 
                                 className='
@@ -67,14 +149,13 @@ const Page = () => {
                                     dark:focus:ring-2 dark:focus:ring-[#C6FE02] dark:outline-none
                                 ' 
                             /> 
+                        <span className="text-red-500 py-2">{errors.firstName}</span>
                         </div> 
 
                         <div> 
                             <Label htmlFor="Customer-lName" className='block font-medium mb-2 dark:text-white'>Last Name *</Label> 
                             <Input 
-                                value={val.lname}
-                                onChange={handleChange}
-                                name="lname"
+                                name="last_name"
                                 id="Customer-lName"
                                 type="text"
                                 className='
@@ -86,14 +167,13 @@ const Page = () => {
                                     dark:focus:ring-2 dark:focus:ring-[#C6FE02] dark:outline-none
                                 ' 
                             /> 
+                            <span className="text-red-500 py-2">{errors.lastName}</span>
                         </div> 
 
                         <div> 
                             <Label htmlFor="Customer-email" className='block font-medium mb-2 dark:text-white'>Email *</Label> 
                             <Input 
-                                onChange={handleChange}
-                                value={val.email}
-                                name="email"
+                                name="user_email"
                                 id="Customer-email"
                                 type="email"
                                 className='
@@ -105,14 +185,12 @@ const Page = () => {
                                     dark:focus:ring-2 dark:focus:ring-[#C6FE02] dark:outline-none
                                 ' 
                             /> 
+                            <span className="text-red-500 py-2">{errors.email}</span>
                         </div> 
-
                         <div> 
                             <Label htmlFor="Customer-phone" className='block font-medium mb-2 dark:text-white'>Phone Number *</Label> 
                             <Input 
-                                onChange={handleChange}
-                                value={val.phone}
-                                name="phone"
+                                name="user_phone"
                                 id="Customer-phone"
                                 type='number' 
                                 className='
@@ -124,13 +202,11 @@ const Page = () => {
                                     dark:focus:ring-2 dark:focus:ring-[#C6FE02] dark:outline-none
                                 ' 
                             /> 
+                            <span className="text-red-500 py-2">{errors.phone}</span>
                         </div> 
-
                         <div className='md:col-span-2'> 
                             <Label htmlFor="Customer-message" className='block font-medium mb-2 dark:text-white'>Message *</Label> 
                             <Textarea 
-                                onChange={handleChange}
-                                value={val.message}
                                 name="message"
                                 rows={7}
                                 id="Customer-message"
@@ -144,14 +220,15 @@ const Page = () => {
                                 '
                             />
                         </div> 
-
+                <span className="text-red-500 block">{errors.message}</span>
                         <Button className="
                             bg-[#359487] 
                             dark:bg-[#C6FE02] dark:text-black 
                             dark:hover:bg-[#e4ff37]
                             md:col-span-2
                             flex items-center gap-2
-                        ">
+                        "
+                        type="submit">
                             <FiSend />
                             Send Message
                         </Button> 

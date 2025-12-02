@@ -9,7 +9,7 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea"
-// import emailjs from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 
 
 const Page = () => {
@@ -34,68 +34,68 @@ const Page = () => {
     message: ""
     });
 
-//     const sendEmail = (e) => {
-//     e.preventDefault();
+    const sendEmail = (e) => {
+    e.preventDefault();
 
-//     const firstName = form.current.name.value.trim();
-//     const lastName = form.current.last_name.value.trim();
-//     const email = form.current.user_email.value.trim();
-//     const phone = form.current.user_phone.value.trim();
-//     const message = form.current.message.value.trim();
+    const firstName = form.current.name.value.trim();
+    const lastName = form.current.last_name.value.trim();
+    const email = form.current.user_email.value.trim();
+    const phone = form.current.user_phone.value.trim();
+    const message = form.current.message.value.trim();
 
-//     const newErrors = { firstName: "", lastName: "", email: "", phone: "", message: "" };
-//     let hasError = false;
+    const newErrors = { firstName: "", lastName: "", email: "", phone: "", message: "" };
+    let hasError = false;
 
-//     if (!nameRegex.test(firstName)) {
-//     newErrors.firstName = "Please enter a valid first name.";
-//     hasError = true;
-//     }
+    if (!nameRegex.test(firstName)) {
+    newErrors.firstName = "Please enter a valid first name.";
+    hasError = true;
+    }
 
-//     if (!nameRegex.test(lastName)) {
-//     newErrors.lastName = "Please enter a valid last name.";
-//     hasError = true;
-//     }
+    if (!nameRegex.test(lastName)) {
+    newErrors.lastName = "Please enter a valid last name.";
+    hasError = true;
+    }
 
-//     if (!emailRegex.test(email)) {
-//     newErrors.email = "Please enter a valid email address.";
-//     hasError = true;
-//     }
+    if (!emailRegex.test(email)) {
+    newErrors.email = "Please enter a valid email address.";
+    hasError = true;
+    }
 
-//     if (!phoneRegex.test(phone)) {
-//     newErrors.phone = "Please enter a valid phone number.";
-//     hasError = true;
-//     }
+    if (!phoneRegex.test(phone)) {
+    newErrors.phone = "Please enter a valid phone number.";
+    hasError = true;
+    }
 
-//     if (message.length < 10) {
-//     newErrors.message = "Message should be at least 10 characters.";
-//     hasError = true;
-//     }
+    if (message.length < 10) {
+    newErrors.message = "Message should be at least 10 characters.";
+    hasError = true;
+    }
 
-//     setErrors(newErrors);
+    setErrors(newErrors);
 
-//     if (hasError) return;
+    if (hasError) return;
 
-//     emailjs
-//     .send(
-//     "service_stzzgp7", 
-//     "template_0l6hqcg", 
-//     {
-//         name: name,
-//         user_phone: phone,
-//         user_email: email,
-//         message: message
-//     },
-//     "aFgvqEvdcPcxOsnQn" 
-//     )
-//     .then(() => {
-//     showToast("success", "Message sent successfully!");
-//     form.current.reset();
-//     })
-//     .catch((error) => {
-//     console.log(error);
-//     showToast("error", "Something went wrong, please try again.");
-//     });
-// };
+    emailjs
+    .send(
+    "service_stzzgp7", 
+    "template_0l6hqcg", 
+    {
+        name: name,
+        user_phone: phone,
+        user_email: email,
+        message: message
+    },
+    "aFgvqEvdcPcxOsnQn" 
+    )
+    .then(() => {
+    showToast("success", "Message sent successfully!");
+    form.current.reset();
+    })
+    .catch((error) => {
+    console.log(error);
+    showToast("error", "Something went wrong, please try again.");
+    });
+};
     return ( 
         <div className="pb-20 bg-[#F3F3F3] dark:bg-gradient-to-b dark:from-[#181715] dark:to-[#1F1D1A]"> 
             <div className="text-center pt-10 mb-10"> 
@@ -116,7 +116,7 @@ const Page = () => {
 
             <div className='lg:grid lg:grid-cols-3 mx-6 gap-8'>
                 <form 
-            // onSubmit={sendEmail} ref={form}                    
+            onSubmit={sendEmail} ref={form}                    
                     className="
                         border border-gray-300
                         dark:border-[#3A3734]

@@ -4,9 +4,9 @@ import React from 'react'
 import {Button} from './ui/button'
 import {FaSun, FaMoon} from "react-icons/fa"
 import { useTheme } from 'next-themes';
+import { useSelector } from 'react-redux';
 
 export default function ThemeToggle() {
-
   const {theme, setTheme} = useTheme() 
 
   return (

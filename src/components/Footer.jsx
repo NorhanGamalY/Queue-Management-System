@@ -1,12 +1,19 @@
+"use client";
+
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 
 const Footer = () => {
+  const pathName = usePathname();
+  if(pathName === '/login' || pathName === '/login/businessregister' || pathName === '/login/customerregister'){
+    return null;
+  }
   return (
     <footer className="bg-white border-t-2 border-t-gray-300 dark:bg-[#1a1815] text-gray-700 dark:text-gray-300 border-gray-600 dark:border-gray-700 transition-colors duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-[#359487] dark:text-[#C6FE02]">
@@ -62,7 +69,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Support</h4>
             <ul className="space-y-2">
               <li>
@@ -91,7 +98,7 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Contact Us</h4>

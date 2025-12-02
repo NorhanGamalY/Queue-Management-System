@@ -1,13 +1,59 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ThemeToggle from './ThemeToggle'
 import { Button } from './ui/button'
 import { FaArrowRight } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Navbar() {
-
+  const pathName = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check authentication status
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/v1/auth/me', {
+          credentials: 'include',
+        });
+        setIsAuthenticated(res.ok);
+      } catch (error) {
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [pathName]);
+
+  // Hide navbar only on login/register pages
+  if(pathName === '/login' || 
+     pathName === '/login/businessregister' || 
+     pathName === '/login/customerregister') {
+    return null;
+  }
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/v1/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        setIsAuthenticated(false);
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   return (
     <>
@@ -27,11 +73,19 @@ export default function Navbar() {
               <Link href="/contact"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li></Link>
             </ul>
 
-            <Link href="/login" >
-              <Button className="my-5 bg-[#359487] dark:bg-white">
-                Login <FaArrowRight />
-              </Button>
-            </Link>
+            {!loading && (
+              isAuthenticated ? (
+                <Button onClick={handleLogout} className="my-5 bg-[#359487] hover:bg-black dark:bg-[#C6FE02] dark:hover:bg-[#C6FE02]">
+                  Logout <BiLogOut />
+                </Button>
+              ) : (
+                <Link href="/login" >
+                  <Button className="my-5 bg-[#359487] dark:bg-white">
+                    Login <FaArrowRight />
+                  </Button>
+                </Link>
+              )
+            )}
           </div>
 
           <ThemeToggle />
@@ -70,11 +124,19 @@ export default function Navbar() {
               <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li>
             </Link>
 
-            <Link href="/login" onClick={() => setIsOpen(false)}>
-              <Button className="my-3 w-full bg-[#359487] dark:bg-white flex justify-center">
-                Add Your Business <FaArrowRight />
-              </Button>
-            </Link>
+            {!loading && (
+              isAuthenticated ? (
+                <Button onClick={() => { handleLogout(); setIsOpen(false); }} className="my-3 w-full bg-red-500 hover:bg-red-600 flex justify-center">
+                  Logout <BiLogOut />
+                </Button>
+              ) : (
+                <Link href="/login" onClick={() => setIsOpen(false)}>
+                  <Button className="my-3 w-full bg-[#359487] dark:bg-white flex justify-center">
+                    Login <FaArrowRight />
+                  </Button>
+                </Link>
+              )
+            )}
           </ul>
         </div>
       )}

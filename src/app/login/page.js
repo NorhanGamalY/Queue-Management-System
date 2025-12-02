@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { MdOutlineAddBusiness, MdOutlineMailLock } from "react-icons/md";
@@ -8,8 +9,95 @@ import { Button } from '@/components/ui/button';
 import { RiLockPasswordLine } from "react-icons/ri";
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
+  const API = 'http://localhost:5000/api/v1/auth/login';
+  
+  const [customerData, setCustomerData] = useState({ email: '', password: '' });
+  const [businessData, setBusinessData] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleCustomerChange = (e) => {
+    setCustomerData({...customerData, [e.target.name]: e.target.value});
+  };
+
+  const handleBusinessChange = (e) => {
+    setBusinessData({...businessData, [e.target.name]: e.target.value});
+  };
+
+  const handleCustomerLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const res = await fetch(API, {
+        method: "POST",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(customerData)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to login");
+      }
+
+      console.log('Logged in:', data);
+      
+      // Dynamic redirect based on account type
+      if (data.data.type === 'business') {
+        router.push('/business');
+      } else {
+        router.push('/user');
+      }
+    } catch (err) {
+      setError(err.message);
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBusinessLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const res = await fetch(API, {
+        method: "POST",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(businessData)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to login");
+      }
+
+      console.log('Logged in:', data);
+      
+      // Dynamic redirect based on account type
+      if (data.data.type === 'business') {
+        router.push('/business');
+      } else {
+        router.push('/user');
+      }
+    } catch (err) {
+      setError(err.message);
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 dark:bg-[#221F1B]">
       
@@ -29,6 +117,12 @@ export default function Page() {
           Log in to access your dashboard and manage your account.
         </p>
 
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">
+            {error}
+          </div>
+        )}
+
         <Tabs defaultValue="account" className="w-full">
 
           <TabsList className="bg-[#ECECF0] mb-6 flex w-full dark:bg-[#37332f] dark:text-white">
@@ -44,35 +138,107 @@ export default function Page() {
           </TabsList>
 
           <TabsContent value="account">
-            <div className="grid gap-4">
-              <Label>Email</Label>
-              <Input className="bg-[#ECECF0]" placeholder="email@example.com" />
+            <form onSubmit={handleCustomerLogin} className="grid gap-4">
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="customer-email">
+                  <MdOutlineMailLock />
+                  Email
+                </Label>
+                <Input
+                  type="email"
+                  onChange={handleCustomerChange}
+                  value={customerData.email}
+                  name="email"
+                  className="bg-[#ECECF0]"
+                  id="customer-email"
+                  placeholder="email@example.com"
+                  required
+                />
+              </div>
 
-              <Label>Password</Label>
-              <Input className="bg-[#ECECF0]" placeholder="password" />
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="customer-password">
+                  <RiLockPasswordLine />
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  onChange={handleCustomerChange}
+                  value={customerData.password}
+                  name="password"
+                  className="bg-[#ECECF0]"
+                  id="customer-password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
 
-              <Button className="w-full mt-2">Login</Button>
+              <div className="text-right mb-2">
+                <Link href="/login/forgot-password" className="text-sm text-gray-700 hover:underline font-medium">
+                  Forgot Password?
+                </Link>
+              </div>
+
+              <Button type="submit" className="w-full mt-2" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login'}
+              </Button>
 
               <p className="text-center mt-2">
                 Don't have an account? <Link className='font-bold' href="./login/customerregister">Sign Up</Link>
               </p>
-            </div>
+            </form>
           </TabsContent>
 
           <TabsContent value="business">
-            <div className="grid gap-4">
-              <Label>Business Email</Label>
-              <Input className="bg-[#ECECF0]" placeholder="business@example.com" />
+            <form onSubmit={handleBusinessLogin} className="grid gap-4">
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="business-email">
+                  <MdOutlineMailLock />
+                  Business Email
+                </Label>
+                <Input
+                  type="email"
+                  onChange={handleBusinessChange}
+                  value={businessData.email}
+                  name="email"
+                  className="bg-[#ECECF0]"
+                  id="business-email"
+                  placeholder="business@example.com"
+                  required
+                />
+              </div>
 
-              <Label>Password</Label>
-              <Input className="bg-[#ECECF0]" placeholder="password" />
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="business-password">
+                  <RiLockPasswordLine />
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  onChange={handleBusinessChange}
+                  value={businessData.password}
+                  name="password"
+                  className="bg-[#ECECF0]"
+                  id="business-password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
 
-              <Button className="w-full mt-2">Login to Dashboard</Button>
+              <div className="text-right mb-2">
+                <Link href="/login/forgot-password" className="text-sm text-[#29b7a4] hover:underline font-medium">
+                  Forgot Password?
+                </Link>
+              </div>
+
+              <Button type="submit" className="w-full mt-2" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login to Dashboard'}
+              </Button>
 
               <p className="text-center mt-2">
                 Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up</Link>
               </p>
-            </div>
+            </form>
           </TabsContent>
 
         </Tabs>

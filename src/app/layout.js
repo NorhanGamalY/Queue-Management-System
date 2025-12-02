@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Quick Queue",
   description: "Skip the Wait, Book Your Spot",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -25,11 +29,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-           <Navbar/>
-        {children}
-        <Footer/>
-        </ThemeProvider>
+        <Providers>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <Navbar/>
+                {children}
+                <Footer/>
+            </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

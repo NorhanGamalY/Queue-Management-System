@@ -22,7 +22,7 @@ const Page = () => {
     return ( 
         <div className="pb-20 bg-[#F3F3F3] dark:bg-gradient-to-b dark:from-[#181715] dark:to-[#1F1D1A]"> 
             <div className="text-center pt-10 mb-10"> 
-                <h1 className="md:text-6xl text-5xl pb-5 dark:text-[#C6FE02] dark:drop-shadow-[0_0_10px_rgba(198,254,2,0.5)]">
+                <h1 className="text-[#359487] font-semibold md:text-6xl text-5xl pb-5 dark:text-[#C6FE02] dark:drop-shadow-[0_0_10px_rgba(198,254,2,0.5)]">
                     Get in Touch
                 </h1> 
                 <p className='md:text-[20px] text-[17px] text-gray-600 px-6 md:px-0 dark:text-gray-300'>

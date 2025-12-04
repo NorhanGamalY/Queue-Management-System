@@ -7,12 +7,15 @@ import { BiLogOut } from "react-icons/bi";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+
 export default function Navbar() {
   const pathName = usePathname();
+  console.log(pathName);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     // Check authentication status
@@ -68,9 +71,9 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <div className="hidden md:flex justify-between items-center gap-3">
             <ul className='flex me-10 text-[17px] cursor-pointer'>
-              <Link href="/"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Home</li></Link>
-              <Link href="/about"><li className='mx-5 hover:text-[#359487] dark:hover:text-[#C6FE02]'>About</li></Link>
-              <Link href="/contact"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li></Link>
+              <Link className={pathName ==="/"? "text-[#359487] dark:text-[#C6FE02]": ""} href="/"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Home</li></Link>
+              <Link className={pathName ==="/about"? "text-[#359487] dark:text-[#C6FE02]":""} href="/about"><li className='mx-5 hover:text-[#359487] dark:hover:text-[#C6FE02]'>About</li></Link>
+              <Link className={pathName ==="/contact"? "text-[#359487] dark:text-[#C6FE02]":""} href="/contact"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li></Link>
             </ul>
 
             {!loading && (

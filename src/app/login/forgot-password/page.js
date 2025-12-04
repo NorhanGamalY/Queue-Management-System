@@ -138,7 +138,7 @@ export default function page() {
               Enter the OTP sent to your email.
             </p>
             {error === "Please enter a valid 6-digit code" && (
-              <p className="bg-red-400 text-white font-medium p-2 rounded-sm mt-3 -mb-3">Please enter a valid 6-digit code</p>
+              <p className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">Please enter a valid 6-digit code</p>
             )}
           </div>
           )}
@@ -151,13 +151,13 @@ export default function page() {
               Create a new password.
             </p>
             {error === "Passwords do not match" && (
-              <p className="bg-red-400 text-white font-medium p-2 rounded-sm mt-3 -mb-3">Passwords do not match</p>
+              <p className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">Passwords do not match</p>
             )}
             {error === "OTP is invalid or has expired" && (
-              <p className="bg-red-400 text-white font-medium p-2 rounded-sm mt-3 -mb-3">OTP is invalid or has expired</p>
+              <p className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">OTP is invalid or has expired</p>
             )}
             {success === "Password reset successfully" && (
-              <p className="bg-green-400 text-white font-medium p-2 rounded-sm mt-3 -mb-3">Password reset successfully</p>
+              <p className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded w-full">Password reset successfully</p>
             )}
           </div>
           )}

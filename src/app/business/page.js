@@ -6,6 +6,11 @@ import { MdDelete, MdEdit, MdSave } from 'react-icons/md';
 import { IoCamera } from 'react-icons/io5';
 import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { SiGoogleanalytics } from "react-icons/si";
+import { FaCreditCard } from "react-icons/fa";
+import { MdReviews } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import { BiLogOut } from 'react-icons/bi';
 
 export default function ClinicDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,12 +21,12 @@ export default function ClinicDashboard() {
   const [openModal, setOpenModal] = useState(false);
 
   const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "patients", label: "Patients", icon: "👥" },
-    { id: "schedule", label: "Schedule", icon: "📅" },
-    { id: "payments", label: "Payments", icon: "💳" },
-    { id: "reviews", label: "Reviews", icon: "⭐" },
-    { id: "profile", label: "Profile", icon: "👤" },
+    { id: "dashboard", label: "Dashboard", icon: <SiGoogleanalytics /> },
+    { id: "patients", label: "Patients", icon: <SiGoogleanalytics /> },
+    { id: "schedule", label: "Schedule", icon: <SiGoogleanalytics /> },
+    { id: "payments", label: "Payments", icon: <FaCreditCard /> },
+    { id: "reviews", label: "Reviews", icon: <MdReviews /> },
+    { id: "profile", label: "Profile", icon: <FaUser /> },
   ];
 
   const handleEditProfile = () => {
@@ -129,34 +134,32 @@ export default function ClinicDashboard() {
                     <span className="font-medium">{item.label}</span>
                   </button>
                 ))}
-                <button 
-                  onClick={async () => {
-                    try {
-                      const res = await fetch('http://localhost:5000/api/v1/auth/logout', {
-                        method: 'POST',
-                        credentials: 'include',
-                      });
-                      if (res.ok) {
-                        window.location.href = '/';
-                      }
-                    } catch (error) {
-                      console.error('Logout error:', error);
+              <button 
+                onClick={async () => {
+                  try {
+                    const res = await fetch('http://localhost:5000/api/v1/auth/logout', {
+                      method: 'POST',
+                      credentials: 'include',
+                    });
+                    if (res.ok) {
+                      window.location.href = '/';
                     }
-                  }}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 transition-all"
-                >
-                  <span className="text-xl">🚪</span>
-                  <span className="font-medium">Logout</span>
-                </button>
+                  } catch (error) {
+                    console.error('Logout error:', error);
+                  }
+                }}
+                className="cursor-pointer b w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-white hover:bg-gray-200 dark:hover:bg-white/5 transition-all"
+              >
+                <span className="text-xl"><BiLogOut size={25}/></span>
+                <span className="font-medium">Logout</span>
+              </button>
               </nav>
             </div>
           </aside>
 
-          {/* Main Content */}
           <main className="flex-1 p-4 md:p-8 w-full max-w-full overflow-x-hidden">
             {activeTab === "dashboard" && (
               <>
-                {/* Header */}
                 <div className="bg-white dark:bg-[#2b2825] rounded-2xl shadow-sm p-6 mb-8 transition-colors duration-300">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>

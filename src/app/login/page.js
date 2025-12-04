@@ -20,6 +20,7 @@ export default function Page() {
   const [businessData, setBusinessData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [roleError, setRoleError] = useState('');
 
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:5000/api/v1/auth/google';
@@ -55,10 +56,12 @@ export default function Page() {
       console.log('Logged in:', data);
       
       // Redirect based on role
-      if (data.user && data.user.role === 'business') {
-        router.push('/business');
-      } else {
+      if (data.user && data.user.role === 'user') {
         router.push('/user');
+      } else if (data.user && data.user.role === 'admin') {
+        router.push('/adminDashboard');
+      } else {
+        setRoleError('User Not Found!');
       }
     } catch (err) {
       setError(err.message);
@@ -93,7 +96,7 @@ export default function Page() {
       if (data.user && data.user.role === 'business') {
         router.push('/business');
       } else {
-        router.push('/user');
+        setRoleError('Business Not Found!');
       }
     } catch (err) {
       setError(err.message);
@@ -125,6 +128,12 @@ export default function Page() {
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">
             {error}
+          </div>
+        )}
+
+        {roleError && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full">
+            {roleError}
           </div>
         )}
 
@@ -257,25 +266,6 @@ export default function Page() {
               <Button type="submit" className="w-full mt-2" disabled={loading}>
                 {loading ? 'Logging in...' : 'Login to Dashboard'}
               </Button>
-
-              <div className="relative my-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">Or continue with</span>
-                </div>
-              </div>
-
-              <Button 
-                type="button"
-                onClick={handleGoogleLogin}
-                className="w-full bg-white dark:bg-[#37332f] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#2b2825] flex items-center justify-center gap-3"
-              >
-                <FcGoogle size={20} />
-                Sign in with Google
-              </Button>
-
               <p className="text-center mt-4">
                 Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up</Link>
               </p>

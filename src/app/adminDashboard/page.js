@@ -8,7 +8,13 @@ import { v4 as uuid } from 'uuid';
 import SalesOverview from '@/components/SalesOverview';
 
 const icons =[<GrMoney />, <FaUsersRays />, <TbUserShield />, <FaChartLine />]
-export default function page() {
+export default async function page() {
+
+  let response = await fetch("http://localhost:5000/api/v1/admin/admin/dashboard",{credentials:"include"});
+  let data = await response.json();
+  console.log(data)
+
+// const [loading, setLoading] = useState(true);
 
 const topProducts = [
   { name: "Premium Widget", category: "Electronics", sales: 342 },

@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation';
 
 export default function Page() {
   const router = useRouter();
-  const API = 'http://localhost:5000/api/v1/auth/register/user';
-  const [user, setUser] = useState({name: '', email: '', password: '', phone: ''})
+  const API = 'http://localhost:5000/api/v1/auth/register';
+  const [user, setUser] = useState({name: '', email: '', password: '', phone: ''});
   const [error, setError] = useState('');
   
   const handleChange = (e) => {
@@ -23,6 +23,7 @@ export default function Page() {
 
   const handleRegister = async () => {
     setError('');
+    console.log(user);
     try {
       const res = await fetch(API, {
         method: "POST",
@@ -32,12 +33,14 @@ export default function Page() {
       })
       
       const data = await res.json();
+      console.log("User Registered:", data);
       
       if(!res.ok){
         throw new Error(data.message || "Failed to register user");
       }
-      
+
       console.log("User Registered:", data);
+      
       router.push('/user');
     } catch (err) {
       console.error("Registration error:", err);
@@ -72,7 +75,7 @@ export default function Page() {
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-Name">
             <IoPersonOutline />
-            Full Name
+            Full Name *
           </Label>
           <Input
             onChange={handleChange}
@@ -87,7 +90,7 @@ export default function Page() {
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-email">
             <MdOutlineMailLock />
-            Email
+            Email *
           </Label>
           <Input
             type="email"
@@ -103,12 +106,12 @@ export default function Page() {
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-Phone">
             <FaPhone />
-            Phone Number (Optional)
+            Phone Number *(11 number)
           </Label>
           <Input
-            type="number"
+            type="tel"
             onChange={handleChange}
-            value={user.phone}
+            value={user.phone || ''}
             name="phone"
             className="bg-[#ECECF0]"
             id="Customer-Phone"
@@ -119,7 +122,7 @@ export default function Page() {
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-password">
             <RiLockPasswordLine />
-            Password
+            Password *
           </Label>
           <Input
             type="password"

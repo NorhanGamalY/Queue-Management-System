@@ -6,10 +6,13 @@ import { FaArrowRight } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { Popover } from "flowbite-react";
+
 
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
+  const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -19,8 +22,10 @@ export default function Navbar() {
     const checkAuth = async () => {
       try {
         const res = await fetch('http://localhost:5000/api/v1/auth/me', {
-          credentials: 'include',
+          credentials: 'include', // Send HTTP-only cookies automatically
         });
+        const data = await res.json();
+        setUserData(data.data);
         setIsAuthenticated(res.ok);
       } catch (error) {
         setIsAuthenticated(false);
@@ -35,7 +40,8 @@ export default function Navbar() {
   // Hide navbar only on login/register pages
   if(pathName === '/login' || 
      pathName === '/login/businessregister' || 
-     pathName === '/login/customerregister') {
+     pathName === '/login/customerregister' || 
+     pathName === '/login/forgot-password') {
     return null;
   }
 
@@ -75,9 +81,47 @@ export default function Navbar() {
 
             {!loading && (
               isAuthenticated ? (
-                <Button onClick={handleLogout} className="my-5 bg-[#359487] hover:bg-black dark:bg-[#C6FE02] dark:hover:bg-[#C6FE02]">
-                  Logout <BiLogOut />
-                </Button>
+                <div className='flex items-center gap-2'>
+                  <Button onClick={handleLogout} className="my-5 bg-[#359487] hover:bg-black dark:bg-[#C6FE02] dark:hover:bg-[#C6FE02]">
+                    Logout <BiLogOut />
+                  </Button>
+                  <Popover
+                    aria-labelledby="profile-popover"
+                    content={
+                      <div className="w-48 p-3" onClick={(e) => e.stopPropagation()}>
+                        <div className="mb-4 flex items-center gap-3">
+                          <p id="profile-popover" className="text-base font-semibold leading-none text-gray-900 dark:text-white">
+                            {userData?.name}
+                          </p>
+                        </div>
+                        <div className="space-y-2">
+                          <Link 
+                            href="/business" 
+                            className="block w-full px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:bg-[#359487] hover:text-white dark:hover:bg-[#C6FE02] dark:hover:text-gray-900 transition-colors duration-200"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            Dashboard
+                          </Link>
+                        </div>
+                      </div>
+                    }
+                  >
+                    <button className="cursor-pointer w-10 h-10 rounded-full overflow-hidden bg-gray-600 text-white flex items-center justify-center text-[18px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#359487]">
+                      {userData?.image ? (
+                        <img 
+                          src={userData?.image} 
+                          alt={userData?.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        userData?.name?.charAt(0)
+                      )}
+                    </button>
+                  </Popover>
+                  {/* <p>{userData?.name || ''}</p> */}
+                </div>
               ) : (
                 <Link href="/login" >
                   <Button className="my-5 bg-[#359487] dark:bg-white">

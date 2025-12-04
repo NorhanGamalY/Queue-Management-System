@@ -7,9 +7,12 @@ import { FaCalendarAlt, FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { FaCreditCard } from "react-icons/fa";
-import { MdDelete, MdEdit, MdReviews } from 'react-icons/md';
+import { MdDelete, MdEdit, MdReviews, MdSave, MdEmail, MdCheck, MdAccountBalance } from 'react-icons/md';
 import { BiLogOut } from "react-icons/bi";
 import { IoCamera } from 'react-icons/io5';
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaPhone } from 'react-icons/fa6';
 
 export default function PatientDashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -25,6 +28,20 @@ export default function PatientDashboard() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+
+    const handleEditProfile = () => {
+        setIsDisabled(false);
+    };
+
+    const handleSaveEdit = () => {
+        setIsDisabled(true);
+    };
+
+    const handleDeleteAccount = () => {
+        setOpenModal(true);
+    };
 
     const handleSearch = async () => {
         if (!searchQuery.trim()) return;
@@ -73,6 +90,31 @@ export default function PatientDashboard() {
     }, []);
 
   return (
+    <>
+    {openModal && (
+            <Modal className='flex items-center' show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+              <div className="rounded-lg border-2 border-gray-300 p-3 shadow-sm">
+                <ModalHeader />
+                  <ModalBody>
+                    <div className="text-center">
+                      <HiOutlineExclamationCircle color="red" className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                      <h3 className="mb-5 text-lg font-normal text-gray-800 dark:text-gray-400">
+                        Are you sure you want to delete your account?
+                      </h3>
+                      <div className="flex justify-center gap-4">
+                        <Button className="bg-red-500 hover:bg-red-600" onClick={() => setOpenModal(false)}>
+                          Yes, I'm sure
+                        </Button>
+                        <Button className="bg-gray-200 hover:bg-gray-300 text-gray-800" onClick={() => setOpenModal(false)}>
+                          No, cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </ModalBody>
+              </div>
+            </Modal>
+          )}
+    
     <div className="min-h-screen bg-[#F3F3F3] dark:bg-[#221F1B] transition-colors duration-300">
       <div className="lg:hidden bg-white dark:bg-[#2b2825] p-4 flex justify-between items-center shadow-sm sticky top-0 z-30">
         <h1 className="text-xl font-bold text-gray-800 dark:text-white">Patient Dashboard</h1>
@@ -157,7 +199,7 @@ export default function PatientDashboard() {
                 <div className="bg-white dark:bg-[#2b2825] rounded-2xl shadow-sm p-6 mb-8 transition-colors duration-300">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Welcome Back, {userData?.name || 'User'}! 👋</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Welcome, {userData?.name.split(" ")[0]}! 👋</h1>
                     <p className="text-gray-600 dark:text-gray-400 mt-1">{dayName}, {monthName} {day}, {year}</p>
                 </div>
                 <div className="flex items-center gap-4">
@@ -263,11 +305,13 @@ export default function PatientDashboard() {
                 👤 My Profile
               </h2>
               <div className="flex flex-wrap gap-3 w-full md:w-auto">
-                <button className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#359487] dark:bg-[#C6FE02] text-white dark:text-black px-6 py-3 rounded-xl font-semibold hover:bg-[#2a8074] dark:hover:bg-[#a7d404] transition-colors">
-                  <span><MdEdit size={22}/></span>
-                  Edit Profile
-                </button>
-                <button className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-semibold hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
+                {isDisabled === true && (
+                  <button onClick={handleEditProfile} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#359487] dark:bg-[#C6FE02] text-white dark:text-black px-6 py-3 rounded-xl font-semibold hover:bg-[#2a8074] dark:hover:bg-[#a7d404] transition-colors">
+                    <span><MdEdit size={22}/></span>
+                    Edit Profile
+                  </button>
+                )}
+                <button onClick={handleDeleteAccount} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-semibold hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
                   <span><MdDelete size={22}/></span>
                   Delete Account
                 </button>
@@ -292,71 +336,87 @@ export default function PatientDashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  👤 Name
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                   <span className=""><FaUser/></span>
+                   Name
                 </label>
                 <input
                   type="text"
                   value={userData?.name || ''}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-[#221F1B] text-gray-800 dark:text-white focus:outline-none"
-                  disabled
+                  disabled={isDisabled}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  📧 Email
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                   <span className=""><MdEmail/></span>
+                   Email
                 </label>
                 <input
                   type="email"
                   value={userData?.email || ''}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-[#221F1B] text-gray-800 dark:text-white focus:outline-none"
-                  disabled
+                  disabled={isDisabled}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  📱 Phone
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                   <span className=""><FaPhone/></span>
+                   Phone
                 </label>
                 <input
                   type="tel"
                   value={userData?.phone || 'Not provided'}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-[#221F1B] text-gray-800 dark:text-white focus:outline-none"
-                  disabled
+                  disabled={isDisabled}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  👤 Account Type
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                   <span className=""><MdAccountBalance/></span>
+                   Account Type
                 </label>
                 <input
                   type="text"
                   value={userData?.type || 'customer'}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-[#221F1B] text-gray-800 dark:text-white focus:outline-none capitalize"
-                  disabled
+                  disabled={isDisabled}
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  ✅ Email Verified
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                   <span className=""><MdCheck size={22} color="green"/></span>
+                   Email Verified
                 </label>
                 <input
                   type="text"
-                  value={userData?.isEmailVerified ? 'Yes' : 'No'}
+                  value={userData?.isEmailVerified ? 'Verified' : 'Not Verified'}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-[#221F1B] text-gray-800 dark:text-white focus:outline-none"
-                  disabled
+                  disabled={isDisabled}
                 />
               </div>
             </div>
+            {isDisabled === false && (
+              <div className="flex justify-end">
+                <button
+                  onClick={handleSaveEdit}
+                  className="mt-5 w-1/4 flex items-center justify-center gap-2 bg-[#359487] dark:bg-[#C6FE02] text-white dark:text-black px-6 py-3 rounded-xl font-semibold hover:bg-[#2a8074] dark:hover:bg-[#a7d404] transition-colors"
+                >
+                  <span><MdSave size={22}/></span>
+                  Save Changes
+                </button>
+              </div>
+            )}
           </div>
           )}
         </main>
       </div>
 
-      <div className="hidden fixed inset-0 bg-black/50 items-center justify-center z-50 p-4">
+      {/* <div className="hidden fixed inset-0 bg-black/50 items-center justify-center z-50 p-4">
         <div className="bg-white dark:bg-[#2b2825] rounded-2xl p-8 max-w-md w-full">
           <div className="text-center mb-6">
             <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -376,7 +436,8 @@ export default function PatientDashboard() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
+  </>
   );
 }

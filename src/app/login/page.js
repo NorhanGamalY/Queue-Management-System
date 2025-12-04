@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { FcGoogle } from "react-icons/fc";
 import { MdOutlineAddBusiness, MdOutlineMailLock } from "react-icons/md";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -19,6 +20,10 @@ export default function Page() {
   const [businessData, setBusinessData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/api/v1/auth/google';
+  };
 
   const handleCustomerChange = (e) => {
     setCustomerData({...customerData, [e.target.name]: e.target.value});
@@ -49,8 +54,8 @@ export default function Page() {
 
       console.log('Logged in:', data);
       
-      // Dynamic redirect based on account type
-      if (data.data.type === 'business') {
+      // Redirect based on role
+      if (data.user && data.user.role === 'business') {
         router.push('/business');
       } else {
         router.push('/user');
@@ -84,8 +89,8 @@ export default function Page() {
 
       console.log('Logged in:', data);
       
-      // Dynamic redirect based on account type
-      if (data.data.type === 'business') {
+      // Redirect based on role
+      if (data.user && data.user.role === 'business') {
         router.push('/business');
       } else {
         router.push('/user');
@@ -101,7 +106,7 @@ export default function Page() {
   return (
     <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 dark:bg-[#221F1B]">
       
-      <div className="relative w-full h-full bg-[#287b70] py-15 md:py-0 dark:bg-black">
+      <div className="relative hidden md:block md:w-full md:h-full bg-[#287b70] py-15 md:py-0 dark:bg-black">
         <Image
           src="/register7.png"
           fill
@@ -183,7 +188,25 @@ export default function Page() {
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
 
-              <p className="text-center mt-2">
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">Or continue with</span>
+                </div>
+              </div>
+
+              <Button 
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full bg-white dark:bg-[#37332f] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#2b2825] flex items-center justify-center gap-3"
+              >
+                <FcGoogle size={20} />
+                Sign in with Google
+              </Button>
+
+              <p className="text-center mt-4">
                 Don't have an account? <Link className='font-bold' href="./login/customerregister">Sign Up</Link>
               </p>
             </form>
@@ -235,7 +258,25 @@ export default function Page() {
                 {loading ? 'Logging in...' : 'Login to Dashboard'}
               </Button>
 
-              <p className="text-center mt-2">
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">Or continue with</span>
+                </div>
+              </div>
+
+              <Button 
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full bg-white dark:bg-[#37332f] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#2b2825] flex items-center justify-center gap-3"
+              >
+                <FcGoogle size={20} />
+                Sign in with Google
+              </Button>
+
+              <p className="text-center mt-4">
                 Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up</Link>
               </p>
             </form>

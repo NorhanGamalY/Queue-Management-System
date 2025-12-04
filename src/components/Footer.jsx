@@ -7,7 +7,10 @@ import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 
 const Footer = () => {
   const pathName = usePathname();
-  if(pathName === '/login' || pathName === '/login/businessregister' || pathName === '/login/customerregister'){
+  if(pathName === '/login' ||
+    pathName === '/login/businessregister' ||
+    pathName === '/login/customerregister' ||
+    pathName === '/login/forgot-password'){
     return null;
   }
   return (

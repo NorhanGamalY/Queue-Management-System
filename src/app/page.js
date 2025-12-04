@@ -15,7 +15,7 @@ export default function Home() {
     setIsSearching(true);
     try {
       const url = searchQuery.trim() 
-        ? `http://localhost:5000/api/v1/search?q=${encodeURIComponent(searchQuery)}`
+        ? `http://localhost:5000/api/v1/search/semantic?q=${encodeURIComponent(searchQuery)}`
         : `http://localhost:5000/api/v1/search`;
         
       const response = await fetch(url);
@@ -33,7 +33,13 @@ export default function Home() {
       
       const data = await response.json();
       console.log('Search results:', data);
-      setSearchResults(Array.isArray(data) ? data : data.results || []);
+      
+      // Handle semantic search response format
+      if (data.success && data.data) {
+        setSearchResults(data.data.businesses || []);
+      } else {
+        setSearchResults(Array.isArray(data) ? data : data.results || []);
+      }
     } catch (error) {
       console.error("Error searching clinics:", error);
       setSearchResults([]);

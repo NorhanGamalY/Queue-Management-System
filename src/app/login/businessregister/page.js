@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Page() {
   const router = useRouter();
-  const API = 'http://localhost:5000/api/v1/auth/register/business';
+  const API = 'http://localhost:5000/api/v1/auth/register-business';
   
   const [business, setBusiness] = useState({
     name: '',
@@ -26,17 +26,57 @@ export default function Page() {
     specialization: '',
     profileImage: '',
     businessImages: '',
-    workingHours: '',
-    service: '',
-    maxPatientsPerDay: '',
-    lastAppointmentTime: ''
+    workingHours: { days: [], openTime: '', closeTime: ''},
+    service: { name: '', description: '', price: '', duration: ''},
+    queueSettings: { maxPatientsPerDay: '', lastTimeToAppoint: ''}
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setBusiness({...business, [e.target.name]: e.target.value});
+    const { name, value, type, checked } = e.target;
+    
+    // Handle working hours nested fields
+    if (name === 'openTime' || name === 'closeTime') {
+      setBusiness({
+        ...business,
+        workingHours: { ...business.workingHours, [name]: value }
+      });
+    }
+    // Handle service nested fields
+    else if (name === 'serviceName' || name === 'serviceDescription' || name === 'servicePrice' || name === 'serviceDuration') {
+      const fieldName = name.replace('service', '').charAt(0).toLowerCase() + name.replace('service', '').slice(1);
+      setBusiness({
+        ...business,
+        service: { ...business.service, [fieldName]: value }
+      });
+    }
+    // Handle queue settings nested fields
+    else if (name === 'maxPatientsPerDay' || name === 'lastAppointmentTime') {
+      const fieldName = name === 'lastAppointmentTime' ? 'lastTimeToAppoint' : name;
+      setBusiness({
+        ...business,
+        queueSettings: { ...business.queueSettings, [fieldName]: value }
+      });
+    }
+    // Handle regular fields
+    else {
+      setBusiness({...business, [name]: value});
+    }
+  };
+
+  // Handle checkbox for working days
+  const handleDayChange = (day) => {
+    const currentDays = business.workingHours.days;
+    const newDays = currentDays.includes(day)
+      ? currentDays.filter(d => d !== day)
+      : [...currentDays, day];
+    
+    setBusiness({
+      ...business,
+      workingHours: { ...business.workingHours, days: newDays }
+    });
   };
 
   const handleRegister = async (e) => {
@@ -55,21 +95,42 @@ export default function Page() {
         paymentMethod: business.paymentMethod,
       };
 
+      // Add optional fields
       if (business.specialization) businessData.specialization = business.specialization;
       if (business.profileImage) businessData.profileImage = business.profileImage;
       if (business.businessImages) {
         businessData.businessImages = business.businessImages.split(',').map(url => url.trim());
       }
-      if (business.workingHours) businessData.workingHours = business.workingHours;
-      if (business.service) businessData.service = business.service.split('\n').filter(s => s.trim());
-      if (business.maxPatientsPerDay) {
-        businessData.queueSettings = {
-          maxPatientsPerDay: parseInt(business.maxPatientsPerDay)
-        };
+
+      // Format workingHours as array (schema expects array)
+      if (business.workingHours && business.workingHours.days.length > 0) {
+        businessData.workingHours = business.workingHours.days.map(day => ({
+          days: day,
+          openTime: business.workingHours.openTime,
+          closeTime: business.workingHours.closeTime,
+          isClosed: false
+        }));
       }
-      if (business.lastAppointmentTime && businessData.queueSettings) {
-        businessData.queueSettings.lastAppointmentTime = business.lastAppointmentTime;
+
+      // Format service as array (schema expects array)
+      if (business.service && business.service.name) {
+        businessData.service = [{
+          name: business.service.name,
+          description: business.service.description,
+          price: parseFloat(business.service.price) || 0,
+          duration: parseInt(business.service.duration) || 0
+        }];
       }
+
+      // Format queueSettings as array (schema expects array)
+      if (business.queueSettings && business.queueSettings.maxPatientsPerDay) {
+        businessData.queueSettings = [{
+          maxPatientsPerDay: parseInt(business.queueSettings.maxPatientsPerDay),
+          LastTimeToAppoint: business.queueSettings.lastTimeToAppoint
+        }];
+      }
+
+      console.log('Sending business data:', businessData);
 
       const res = await fetch(API, {
         method: "POST",
@@ -153,6 +214,23 @@ export default function Page() {
           </div>
 
           <div className="grid gap-4 mb-4">
+            <Label htmlFor="password">
+              <RiLockPasswordLine />
+              Password *
+            </Label>
+            <Input
+              type="password"
+              onChange={handleChange} 
+              value={business.password}
+              name="password"
+              className="bg-[#ECECF0]"
+              id="password"
+              placeholder="Create a Password"
+              required
+            />
+          </div>
+
+          <div className="grid gap-4 mb-4">
             <Label htmlFor="mobilePhone">
               <FaPhone />
               Mobile Phone * (11 digits)
@@ -227,7 +305,7 @@ export default function Page() {
           <div className="grid gap-4 mb-4">
             <Label htmlFor="specialization">
               <FaBriefcase />
-              Specialization (Optional)
+              Specialization
             </Label>
             <Input
               onChange={handleChange}
@@ -248,6 +326,7 @@ export default function Page() {
                 Profile Image URL (Optional)
               </Label>
               <Input
+              type="file"
                 onChange={handleChange}
                 value={business.profileImage}
                 name="profileImage"
@@ -262,6 +341,7 @@ export default function Page() {
                 Business Images URLs (Optional)
               </Label>
               <Input
+              type="file"
                 onChange={handleChange}
                 value={business.businessImages}
                 name="businessImages"
@@ -269,84 +349,155 @@ export default function Page() {
                 id="businessImages"
                 placeholder="Separate multiple URLs with commas"
               />
-              <span className="text-xs text-gray-500">Example: url1.jpg, url2.jpg, url3.jpg</span>
             </div>
 
-            <div className="grid gap-4 mb-4">
-              <Label htmlFor="workingHours">
-                Working Hours (Optional)
-              </Label>
-              <textarea
-                onChange={handleChange}
-                value={business.workingHours}
-                name="workingHours"
-                className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm min-h-[80px]"
-                id="workingHours"
-                placeholder="Example: Sunday-Thursday: 9:00 AM - 5:00 PM"
-              />
-            </div>
+            <div className="border-t pt-4 mt-4">
+              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Working Time</p>
 
-            <div className="grid gap-4 mb-4">
-              <Label htmlFor="service">
-                Services Offered (Optional)
-              </Label>
-              <textarea
-                onChange={handleChange}
-                value={business.service}
-                name="service"
-                className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm min-h-[80px]"
-                id="service"
-                placeholder="List your services (one per line)"
-              />
-            </div>
+              <div className="grid gap-4 mb-4">
+                <Label>Working Days</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => (
+                    <label key={day} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={business.workingHours.days.includes(day)}
+                        onChange={() => handleDayChange(day)}
+                        className="w-4 h-4"
+                      />
+                      <span>{day}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-            <div className="grid gap-4 mb-4">
-              <Label htmlFor="maxPatientsPerDay">
-                Max Patients Per Day (Optional)
-              </Label>
-              <Input
-                onChange={handleChange}
-                value={business.maxPatientsPerDay}
-                name="maxPatientsPerDay"
-                className="bg-[#ECECF0]"
-                id="maxPatientsPerDay"
-                type="number"
-                placeholder="e.g., 50"
-              />
-            </div>
-
-            <div className="grid gap-4 mb-4">
-              <Label htmlFor="lastAppointmentTime">
-                Last Appointment Time (Optional)
-              </Label>
-              <Input
-                onChange={handleChange}
-                value={business.lastAppointmentTime}
-                name="lastAppointmentTime"
-                className="bg-[#ECECF0]"
-                id="lastAppointmentTime"
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="openTime">
+                  Open Time
+                </Label>
+                <Input
                 type="time"
-                placeholder="16:00"
-              />
+                  onChange={handleChange}
+                  value={business.workingHours.openTime}
+                  name="openTime"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
+                  id="openTime"
+                  placeholder="Open Time"
+                />
+              </div>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="closeTime">
+                  Close Time
+                </Label>
+                <Input
+                type="time"
+                  onChange={handleChange}
+                  value={business.workingHours.closeTime}
+                  name="closeTime"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
+                  id="closeTime"
+                  placeholder="Close Time"
+                />
+              </div>
+            </div>
+
+            <div className="border-t pt-4 mt-4">
+              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Service Information</p>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="serviceName">
+                  Service Name
+                </Label>
+                <Input
+                  onChange={handleChange}
+                  value={business.service.name}
+                  name="serviceName"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
+                  id="serviceName"
+                  placeholder="Name of the service"
+                />
+              </div>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="serviceDescription">
+                  Service Description
+                </Label>
+                <textarea
+                  onChange={handleChange}
+                  value={business.service.description}
+                  name="serviceDescription"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm min-h-[80px]"
+                  id="serviceDescription"
+                  placeholder="Description of the service"
+                />
+              </div>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="servicePrice">
+                  Service Price
+                </Label>
+                <Input
+                  type="number"
+                  onChange={handleChange}
+                  value={business.service.price}
+                  name="servicePrice"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
+                  id="servicePrice"
+                  placeholder="Price of the service"
+                />
+              </div>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="serviceDuration">
+                  Service Duration
+                </Label>
+                <Input
+                  type="number"
+                  onChange={handleChange}
+                  value={business.service.duration}
+                  name="serviceDuration"
+                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
+                  id="serviceDuration"
+                  placeholder="Average time for each client in minutes"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="password">
-              <RiLockPasswordLine />
-              Password *
-            </Label>
-            <Input
-              type="password"
-              onChange={handleChange}
-              value={business.password}
-              name="password"
-              className="bg-[#ECECF0]"
-              id="password"
-              placeholder="Create a Password"
-              required
-            />
-          </div>
+                      <div className="border-t pt-4 mt-4">
+              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Queue Settings</p>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="maxPatientsPerDay">
+                  Max Patients Per Day
+                </Label>
+                <Input
+                  onChange={handleChange}
+                  value={business.queueSettings.maxPatientsPerDay}
+                  name="maxPatientsPerDay"
+                  className="bg-[#ECECF0]"
+                  id="maxPatientsPerDay"
+                  type="number"
+                  placeholder="e.g., 20"
+                />
+              </div>
+
+              <div className="grid gap-4 mb-4">
+                <Label htmlFor="lastAppointmentTime">
+                  Last Appointment Time
+                </Label>
+                <Input
+                  onChange={handleChange}
+                  value={business.queueSettings.lastTimeToAppoint}
+                  name="lastAppointmentTime"
+                  className="bg-[#ECECF0]"
+                  id="lastAppointmentTime"
+                  type="time"
+                  placeholder="Last Appointment Time"
+                />
+              </div>
+            </div>
 
           <Button type="submit" className="w-full my-3" disabled={loading}>
             {loading ? 'Creating Account...' : 'Create Account'}

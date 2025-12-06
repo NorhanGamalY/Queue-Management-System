@@ -1,18 +1,20 @@
 "use client";
-import { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { IoPersonCircleSharp } from "react-icons/io5";
-import { FcGoogle } from "react-icons/fc";
-import { MdOutlineAddBusiness, MdOutlineMailLock } from "react-icons/md";
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
-import { RiLockPasswordLine } from "react-icons/ri";
-import Link from 'next/link';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslations } from '@/hooks/useTranslations';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { FcGoogle } from "react-icons/fc";
+import { IoPersonCircleSharp } from "react-icons/io5";
+import { MdOutlineAddBusiness, MdOutlineMailLock } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 export default function Page() {
+  const { t } = useTranslations();
   const router = useRouter();
   const API = 'http://localhost:5000/api/v1/auth/login';
   
@@ -120,7 +122,7 @@ export default function Page() {
 
       <div className="flex flex-col justify-center px-10 bg-white xl:w-2/3 w-full items-center mx-auto dark:bg-[#221F1B]">
 
-        <h2 className="text-3xl font-bold mb-2 text-[#29b7a4]">Login Account</h2>
+        <h2 className="text-3xl font-bold mb-2 text-[#29b7a4]">{t('login.title')}</h2>
         <p className="mb-8 text-gray-500 text-center dark:text-white">
           Log in to access your dashboard and manage your account.
         </p>
@@ -142,12 +144,12 @@ export default function Page() {
           <TabsList className="bg-[#ECECF0] mb-6 flex w-full dark:bg-[#37332f] dark:text-white">
             <TabsTrigger className="w-1/2" value="account">
               <IoPersonCircleSharp />
-              Customer
+              {t('login.customerTab')}
             </TabsTrigger>
 
             <TabsTrigger className="w-1/2" value="business">
               <MdOutlineAddBusiness />
-              Business
+              {t('login.businessTab')}
             </TabsTrigger>
           </TabsList>
 
@@ -156,7 +158,7 @@ export default function Page() {
               <div className="grid gap-4 mb-4">
                 <Label htmlFor="customer-email">
                   <MdOutlineMailLock />
-                  Email
+                  {t('login.email')}
                 </Label>
                 <Input
                   type="email"
@@ -173,7 +175,7 @@ export default function Page() {
               <div className="grid gap-4 mb-4">
                 <Label htmlFor="customer-password">
                   <RiLockPasswordLine />
-                  Password
+                  {t('login.password')}
                 </Label>
                 <Input
                   type="password"
@@ -189,12 +191,12 @@ export default function Page() {
 
               <div className="text-right mb-2">
                 <Link href="/login/forgot-password" className="text-sm text-gray-700 hover:underline font-medium">
-                  Forgot Password?
+                  {t('login.forgotPassword')}
                 </Link>
               </div>
 
               <Button type="submit" className="w-full mt-2" disabled={loading}>
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? t('login.loggingIn') : t('login.loginButton')}
               </Button>
 
               <div className="relative my-6">
@@ -202,7 +204,7 @@ export default function Page() {
                   <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">Or continue with</span>
+                  <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">{t('login.orContinueWith')}</span>
                 </div>
               </div>
 
@@ -212,11 +214,11 @@ export default function Page() {
                 className="w-full bg-white dark:bg-[#37332f] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#2b2825] flex items-center justify-center gap-3"
               >
                 <FcGoogle size={20} />
-                Sign in with Google
+                {t('login.googleLogin')}
               </Button>
 
               <p className="text-center mt-4">
-                Don't have an account? <Link className='font-bold' href="./login/customerregister">Sign Up</Link>
+                {t('login.noAccount')} <Link className='font-bold' href="./login/customerregister">{t('login.signUp')}</Link>
               </p>
             </form>
           </TabsContent>
@@ -226,7 +228,7 @@ export default function Page() {
               <div className="grid gap-4 mb-4">
                 <Label htmlFor="business-email">
                   <MdOutlineMailLock />
-                  Business Email
+                  {t('login.email')}
                 </Label>
                 <Input
                   type="email"
@@ -243,7 +245,7 @@ export default function Page() {
               <div className="grid gap-4 mb-4">
                 <Label htmlFor="business-password">
                   <RiLockPasswordLine />
-                  Password
+                  {t('login.password')}
                 </Label>
                 <Input
                   type="password"
@@ -259,15 +261,15 @@ export default function Page() {
 
               <div className="text-right mb-2">
                 <Link href="/login/forgot-password" className="text-sm text-[#29b7a4] hover:underline font-medium">
-                  Forgot Password?
+                  {t('login.forgotPassword')}
                 </Link>
               </div>
 
               <Button type="submit" className="w-full mt-2" disabled={loading}>
-                {loading ? 'Logging in...' : 'Login to Dashboard'}
+                {loading ? t('login.loggingIn') : t('login.loginButton')}
               </Button>
               <p className="text-center mt-4">
-                Don't have an account? <Link className='font-bold' href="./login/businessregister">Sign Up</Link>
+                {t('login.noAccount')} <Link className='font-bold' href="./login/businessregister">{t('login.signUp')}</Link>
               </p>
             </form>
           </TabsContent>

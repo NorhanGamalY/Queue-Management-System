@@ -1,0 +1,501 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "title": "Skip the Wait, Book Your Spot",
+    "subtitle": "Manage Queues Intelligently",
+    "description": "Find and book appointments at clinics, banks, telecom centers, and more. Manage your time efficiently with our smart queue system.",
+    "bookAppointment": "Book an Appointment",
+    "addBusiness": "Add Your Business"
+  },
+  "stats": {
+    "activeUsers": "Active Users",
+    "businesses": "Businesses",
+    "uptime": "Uptime"
+  },
+  "services": {
+    "title": "Available Services",
+    "subtitle": "Browse and book your spot at various locations",
+    "aiPowered": "AI Powered",
+    "search": "Search for clinics, banks, services...",
+    "medical": {
+      "title": "Medical Clinics",
+      "description": "Book appointments with doctors and specialists without the wait"
+    },
+    "banks": {
+      "title": "Banks & Finance",
+      "description": "Skip the line at banks and financial institutions"
+    },
+    "government": {
+      "title": "Government Services",
+      "description": "Access public services with scheduled appointments"
+    },
+    "telecom": {
+      "title": "Telecom Centers",
+      "description": "Get service at telecom outlets efficiently"
+    }
+  },
+  "cta": {
+    "title": "Ready to Save Time?",
+    "description": "Join thousands of users who are already managing their time efficiently with QuickQueue",
+    "button": "Get Started Now"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's what's happening today.",
+    "todaysPatients": "Today's Patients",
+    "inQueue": "In Queue",
+    "completed": "Completed",
+    "avgWaitTime": "Avg Wait Time",
+    "profile": "Profile",
+    "editProfile": "Edit Profile",
+    "saveChanges": "Save Changes",
+    "deleteAccount": "Delete Account",
+    "logout": "Logout"
+  },
+  "business": {
+    "businessName": "Business Name",
+    "email": "Email",
+    "mobilePhone": "Mobile Phone",
+    "landlinePhone": "Landline Phone",
+    "address": "Address",
+    "paymentMethod": "Payment Method",
+    "specialization": "Specialization",
+    "workingTime": "Working Time",
+    "services": "Services",
+    "queueSettings": "Queue Settings",
+    "accountStatus": "Account Status",
+    "rating": "Rating"
+  },
+  "common": {
+    "waiting": "waiting",
+    "onSchedule": "on schedule",
+    "better": "better",
+    "search": "Search",
+    "searching": "Searching...",
+    "loading": "Loading...",
+    "verifyingAccess": "Verifying access..."
+  },
+  "about": {
+    "title": "About QuickQueue",
+    "subtitle": "We're transforming how businesses manage customer flow and enhance service experiences. Our mission is to eliminate wait-time frustrations and maximize operational efficiency, providing a smoother, more satisfying experience for both customers and businesses.",
+    "stats": {
+      "businesses": "Registered Businesses",
+      "awards": "Awards",
+      "waitTime": "Reduced Wait Time",
+      "uptime": "System Uptime"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "We believe no one should have to waste valuable time standing in line. By leveraging technology and innovation, we're transforming traditional queues into smarter, more efficient, and more accessible service experiences"
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "We envision a future where waiting in line is obsolete, replaced by seamless, digital-first service experiences that prioritize convenience and efficiency."
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "realTime": {
+        "title": "Real-Time Updates",
+        "description": "Stay informed with instant notifications and live queue status."
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "description": "Your data is protected with top-tier security measures."
+      },
+      "multiLanguage": {
+        "title": "Multi-Language Support",
+        "description": "Cater to a diverse clientele with our multi-language interface."
+      },
+      "integration": {
+        "title": "Easy Integration",
+        "description": "Seamlessly integrate with your existing systems and workflows."
+      },
+      "scheduling": {
+        "title": "Smart Scheduling",
+        "description": "Optimize appointment bookings with intelligent scheduling features."
+      },
+      "analytics": {
+        "title": "Analytics Dashboard",
+        "description": "Gain insights with comprehensive analytics and reporting tools."
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Always pushing boundaries"
+      },
+      "customerFirst": {
+        "title": "Customer First",
+        "description": "Your success is our success"
+      },
+      "reliability": {
+        "title": "Reliability",
+        "description": "Consistent, dependable service"
+      },
+      "transparency": {
+        "title": "Transparency",
+        "description": "Open and honest communication"
+      }
+    }
+  },
+  "clinics": {
+    "title": "Browse Businesses",
+    "subtitle": "Find and book appointments at clinics, hospitals, and medical centers near you",
+    "searchPlaceholder": "Search by name, location, or specialty...",
+    "allCategories": "All Categories",
+    "showing": "Showing",
+    "of": "of",
+    "businessesText": "businesses",
+    "loadingBusinesses": "Loading businesses...",
+    "noBusinessesFound": "No businesses found",
+    "tryAdjusting": "Try adjusting your search or filters",
+    "openNow": "Open Now",
+    "closed": "Closed",
+    "viewDetails": "View Details",
+    "categories": {
+      "all": "All Categories",
+      "medical": "Medical",
+      "dental": "Dental",
+      "pharmacy": "Pharmacy",
+      "laboratory": "Laboratory",
+      "clinic": "Clinic",
+      "hospital": "Hospital"
+    }
+  },
+  "login": {
+    "title": "Welcome Back",
+    "customerTab": "Customer Login",
+    "businessTab": "Business Login",
+    "email": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "Login",
+    "loggingIn": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "orContinueWith": "Or continue with",
+    "googleLogin": "Sign in with Google",
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "wrongRole": "This account is not registered as a",
+      "serverError": "Something went wrong. Please try again."
+    }
+  },
+  "userDashboard": {
+    "greeting": "Hello",
+    "date": "Today is",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "tickets": "My Tickets",
+      "profile": "Profile",
+      "reviews": "Reviews",
+      "analytics": "Analytics"
+    },
+    "stats": {
+      "totalTickets": "Total Tickets",
+      "activeTickets": "Active Tickets",
+      "completedTickets": "Completed",
+      "upcomingAppointments": "Upcoming"
+    },
+    "searchPlaceholder": "Search for businesses...",
+    "noTickets": "No tickets found",
+    "ticketStatus": {
+      "waiting": "Waiting",
+      "called": "Called",
+      "served": "Served",
+      "cancelled": "Cancelled"
+    },
+    "editProfile": "Edit Profile",
+    "saveChanges": "Save Changes",
+    "deleteAccount": "Delete Account",
+    "confirmDelete": "Are you sure you want to delete your account?",
+    "deleteWarning": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Yes, Delete",
+    "reviews": {
+      "title": "My Reviews",
+      "subtitle": "Reviews you've written for businesses",
+      "noReviews": "You haven't written any reviews yet",
+      "writeReview": "Write a Review",
+      "business": "Business",
+      "rating": "Rating",
+      "comment": "Comment",
+      "date": "Date",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "appointments": {
+      "title": "My Appointments",
+      "subtitle": "Manage your upcoming and past appointments",
+      "noAppointments": "No appointments found",
+      "upcoming": "Upcoming Appointments",
+      "past": "Past Appointments",
+      "businessName": "Business",
+      "dateTime": "Date & Time",
+      "status": "Status",
+      "cancel": "Cancel",
+      "reschedule": "Reschedule",
+      "viewDetails": "View Details"
+    },
+    "payments": {
+      "title": "Payment History",
+      "subtitle": "View your transaction history",
+      "noPayments": "No payment history available",
+      "transactionId": "Transaction ID",
+      "business": "Business",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "method": "Payment Method",
+      "viewReceipt": "View Receipt",
+      "statusTypes": {
+        "completed": "Completed",
+        "pending": "Pending",
+        "failed": "Failed",
+        "refunded": "Refunded"
+      }
+    }
+  },
+  "adminDashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's what's happening today.",
+    "salesOverview": "Sales Overview",
+    "topProducts": "Top Products",
+    "recentActivity": "Recent Activity",
+    "user": "User",
+    "action": "Action",
+    "time": "Time",
+    "status": "Status",
+    "sales": "sales",
+    "category": "Category"
+  },
+  "notFound": {
+    "button": "Go Back To Home"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions? We're here to help! Reach out and we'll get back to you as soon as possible.",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending..."
+    },
+    "info": {
+      "email": {
+        "title": "Email Us",
+        "content": "support@quickqueue.com"
+      },
+      "phone": {
+        "title": "Call Us",
+        "content": "+1 (555) 123-4567"
+      },
+      "hours": {
+        "title": "Business Hours",
+        "content": "Mon - Fri: 9AM - 6PM"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How do I book an appointment?",
+        "answer": "Simply search for a business, select your preferred time slot, and confirm your booking. You'll receive instant confirmation."
+      },
+      "q2": {
+        "question": "Can I cancel or reschedule?",
+        "answer": "Yes! You can manage your appointments from your dashboard. Cancel or reschedule up to 2 hours before your appointment time."
+      },
+      "q3": {
+        "question": "Is the service free?",
+        "answer": "Yes, QuickQueue is free for customers. Businesses pay a subscription fee to use our platform."
+      },
+      "q4": {
+        "question": "How do I get notifications?",
+        "answer": "Enable browser notifications when prompted, and we'll send you real-time updates about your queue position."
+      }
+    },
+    "errors": {
+      "firstName": "Please enter a valid first name (3-30 characters).",
+      "lastName": "Please enter a valid last name (3-30 characters).",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid 11-digit phone number.",
+      "message": "Message must be at least 10 characters long."
+    },
+    "success": "Message sent successfully! We'll get back to you soon.",
+    "error": "Failed to send message. Please try again."
+  },
+  "register": {
+    "customer": {
+      "title": "Create Account",
+      "subtitle": "Sign up to book appointments.",
+      "fullName": "Full Name *",
+      "email": "Email *",
+      "phone": "Phone Number *(11 number)",
+      "password": "Password *",
+      "createAccount": "Create Account",
+      "signUpWithGoogle": "Sign up with Google",
+      "orContinueWith": "Or continue with",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "namePlaceholder": "Enter Your Name",
+      "emailPlaceholder": "email@example.com",
+      "phonePlaceholder": "01234567890",
+      "passwordPlaceholder": "Create a Password"
+    },
+    "business": {
+      "title": "Create Business Account",
+      "subtitle": "Register your business to manage queues.",
+      "businessName": "Business Name *",
+      "businessEmail": "Business Email *",
+      "password": "Password *",
+      "mobilePhone": "Mobile Phone * (11 digits)",
+      "landlinePhone": "Landline Phone * (8 digits)",
+      "address": "Address *",
+      "paymentMethod": "Payment Method *",
+      "selectPaymentMethod": "Select Payment Methods",
+      "cash": "Cash",
+      "creditCard": "Credit Card",
+      "wallet": "Wallet",
+      "specialization": "Specialization",
+      "optionalInfo": "Optional Information",
+      "profileImage": "Profile Image URL (Optional)",
+      "businessImages": "Business Images URLs (Optional)",
+      "workingDays": "Working Days *",
+      "openTime": "Opening Time *",
+      "closeTime": "Closing Time *",
+      "serviceName": "Service Name (Optional)",
+      "serviceDescription": "Service Description (Optional)",
+      "servicePrice": "Service Price (Optional)",
+      "serviceDuration": "Service Duration in minutes (Optional)",
+      "maxPatientsPerDay": "Max Patients Per Day (Optional)",
+      "lastAppointmentTime": "Last Appointment Time (Optional)",
+      "createBusinessAccount": "Create Business Account",
+      "businessNamePlaceholder": "Enter Business Name",
+      "emailPlaceholder": "email@example.com",
+      "passwordPlaceholder": "Create a Password",
+      "mobilePhonePlaceholder": "01234567890",
+      "landlinePhonePlaceholder": "12345678",
+      "addressPlaceholder": "Enter Business Address",
+      "specializationPlaceholder": "e.g., Dental Clinic, Medical Center",
+      "profileImagePlaceholder": "https://example.com/image.jpg",
+      "businessImagesPlaceholder": "Separate multiple URLs with commas",
+      "workingTime": "Working Time",
+      "serviceInfo": "Service Information",
+      "queueSettings": "Queue Settings",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "serviceNamePlaceholder": "Name of the service",
+      "serviceDescriptionPlaceholder": "Description of the service",
+      "servicePricePlaceholder": "Price of the service",
+      "serviceDurationPlaceholder": "Average time for each client in minutes",
+      "maxPatientsPlaceholder": "e.g., 20",
+      "lastAppointmentPlaceholder": "Last Appointment Time",
+      "creatingAccount": "Creating Account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
+  "businessDashboard": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "queueManagement": "Queue Management",
+      "patients": "Patients",
+      "schedule": "Schedule",
+      "payments": "Payments",
+      "reviews": "Reviews",
+      "profile": "Profile"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "todaysPatients": "Today's Patients",
+      "inQueue": "In Queue",
+      "completed": "Completed",
+      "avgWaitTime": "Avg Wait Time",
+      "queueControl": "Queue Control",
+      "pauseQueue": "Pause Queue",
+      "resumeQueue": "Resume Queue",
+      "addWalkin": "Add Walk-in",
+      "currentServing": "Current Serving",
+      "nextInLine": "Next in Line",
+      "totalInQueue": "Total in Queue",
+      "estimatedWait": "Estimated Wait",
+      "open": "Open",
+      "paused": "Paused",
+      "none": "None",
+      "patients": "patients",
+      "minutes": "min",
+      "patientQueue": "Patient Queue",
+      "all": "All",
+      "waitingCount": "Waiting",
+      "called": "Called",
+      "inProgress": "In Progress",
+      "paid": "Paid",
+      "cash": "Cash",
+      "estimated": "Est.",
+      "capacityLeft": "Capacity Left"
+    },
+    "queueManagement": {
+      "title": "Queue Management",
+      "subtitle": "Manage tickets and serve customers",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "waiting": "WAITING",
+      "serving": "SERVING",
+      "completed": "COMPLETED",
+      "avgWait": "AVG WAIT",
+      "currentlyServing": "Currently Serving",
+      "ticketNumber": "Ticket Number",
+      "markAsServed": "Mark as Served",
+      "callNext": "Call Next Ticket",
+      "calling": "Calling...",
+      "waitingQueue": "Waiting Queue",
+      "beingServed": "Being Served",
+      "noWaitingTickets": "No waiting tickets",
+      "noServingTickets": "No tickets being served",
+      "guest": "Guest",
+      "active": "ACTIVE",
+      "complete": "Complete",
+      "ticket": "Ticket"
+    },
+    "profile": {
+      "title": "Business Profile",
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "deleteAccount": "Delete Account",
+      "businessName": "Business Name",
+      "email": "Email",
+      "mobilePhone": "Mobile Phone",
+      "landlinePhone": "Landline Phone",
+      "address": "Address",
+      "paymentMethod": "Payment Method",
+      "specialization": "Specialization",
+      "queueSettings": "Queue Settings",
+      "notProvided": "Not provided",
+      "notSpecified": "Not specified",
+      "noQueueSettings": "No queue settings configured",
+      "workingDays": "Working Days",
+      "openTime": "Open Time",
+      "closeTime": "Close Time",
+      "maxPatients": "Max Patients Per Day"
+    },
+    "placeholder": {
+      "underDevelopment": "This section is under development."
+    }
+  }
+}

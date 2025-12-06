@@ -1,18 +1,26 @@
 "use client";
-import { useState } from 'react'
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from '@/components/ui/button'
-import { MdOutlineMailLock } from "react-icons/md"
-import { RiLockPasswordLine } from "react-icons/ri"
-import { IoPersonOutline } from "react-icons/io5"
-import { FaPhone, FaMapMarkerAlt, FaCreditCard, FaBriefcase } from "react-icons/fa"
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import FormField from '@/components/BusinessRegister/FormField';
+import QueueSettingsSection from '@/components/BusinessRegister/QueueSettingsSection';
+import ServiceSection from '@/components/BusinessRegister/ServiceSection';
+import WorkingTimeSection from '@/components/BusinessRegister/WorkingTimeSection';
+import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
+import { Button } from '@/components/ui/button';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useTranslations } from '@/hooks/useTranslations';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { FaBriefcase, FaCreditCard, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { IoPersonOutline } from "react-icons/io5";
+import { MdOutlineMailLock } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslations();
   const API = 'http://localhost:5000/api/v1/auth/register-business';
   
   const [business, setBusiness] = useState({
@@ -22,7 +30,7 @@ export default function Page() {
     mobilePhone: '',
     landlinePhone: '',
     address: '',
-    paymentMethod: '',
+    paymentMethod: [],
     specialization: '',
     profileImage: '',
     businessImages: '',
@@ -31,6 +39,7 @@ export default function Page() {
     queueSettings: { maxPatientsPerDay: '', lastTimeToAppoint: ''}
   });
 
+  const [profilePhotoFile, setProfilePhotoFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -79,6 +88,19 @@ export default function Page() {
     });
   };
 
+  // Handle payment method checkbox
+  const handlePaymentMethodChange = (method) => {
+    const currentMethods = business.paymentMethod;
+    const newMethods = currentMethods.includes(method)
+      ? currentMethods.filter(m => m !== method)
+      : [...currentMethods, method];
+    
+    setBusiness({
+      ...business,
+      paymentMethod: newMethods
+    });
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
@@ -92,7 +114,7 @@ export default function Page() {
         mobilePhone: business.mobilePhone,
         landlinePhone: business.landlinePhone,
         address: business.address,
-        paymentMethod: business.paymentMethod,
+        paymentMethod: business.paymentMethod.length > 0 ? business.paymentMethod[0] : 'cash',
       };
 
       // Add optional fields
@@ -146,6 +168,29 @@ export default function Page() {
       }
 
       console.log('Business registered:', data);
+
+      // Upload profile photo if selected
+      if (profilePhotoFile) {
+        try {
+          const formData = new FormData();
+          formData.append('profileImage', profilePhotoFile);
+
+          const uploadRes = await fetch('http://localhost:5000/api/v1/businesses/upload-profile-photo', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+          });
+
+          if (uploadRes.ok) {
+            toast.success('Profile photo uploaded successfully');
+          }
+        } catch (uploadErr) {
+          console.error('Photo upload error:', uploadErr);
+          toast.error('Business registered but photo upload failed');
+        }
+      }
+
+      toast.success('Business registered successfully!');
       router.push('/business');
     } catch (err) {
       setError(err.message);
@@ -170,8 +215,8 @@ export default function Page() {
 
       <div className="flex flex-col justify-start px-10 py-12 text-center md:text-left bg-white xl:w-2/3 w-full mx-auto dark:bg-[#221F1B] overflow-y-auto max-h-screen">
 
-        <p className="text-3xl font-bold mb-2 text-[#29b7a4] text-center">Create Business Account</p>
-        <span className="block mb-8 text-gray-500 text-center dark:text-white">Register your business to manage queues.</span>
+        <p className="text-3xl font-bold mb-2 text-[#29b7a4] text-center">{t('register.business.title')}</p>
+        <span className="block mb-8 text-gray-500 text-center dark:text-white">{t('register.business.subtitle')}</span>
 
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -180,334 +225,197 @@ export default function Page() {
         )}
 
         <form onSubmit={handleRegister}>
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="name">
-              <IoPersonOutline />
-              Business Name *
-            </Label>
-            <Input
-              onChange={handleChange}
-              value={business.name}
-              name="name"
-              className="bg-[#ECECF0]"
-              id="name"
-              placeholder="Enter Business Name"
-              required
+          {/* Profile Photo Upload */}
+          <div className="mb-6">
+            <Label className="text-base font-semibold mb-3 block text-center">Profile Photo</Label>
+            <ProfilePhotoUpload
+              currentImage={business.profileImage}
+              onImageChange={(file) => setProfilePhotoFile(file)}
+              size="large"
             />
           </div>
 
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="email">
-              <MdOutlineMailLock />
-              Business Email *
-            </Label>
-            <Input
-              type="email"
-              onChange={handleChange}
-              value={business.email}
-              name="email"
-              className="bg-[#ECECF0]"
-              id="email"
-              placeholder="email@example.com"
-              required
-            />
-          </div>
+          <FormField
+            icon={IoPersonOutline}
+            label={t('register.business.businessName')}
+            id="name"
+            name="name"
+            value={business.name}
+            onChange={handleChange}
+            placeholder={t('register.business.businessNamePlaceholder')}
+            required
+          />
+
+          <FormField
+            icon={MdOutlineMailLock}
+            label={t('register.business.businessEmail')}
+            id="email"
+            name="email"
+            type="email"
+            value={business.email}
+            onChange={handleChange}
+            placeholder={t('register.business.emailPlaceholder')}
+            required
+          />
+
+          <FormField
+            icon={RiLockPasswordLine}
+            label={t('register.business.password')}
+            id="password"
+            name="password"
+            type="password"
+            value={business.password}
+            onChange={handleChange}
+            placeholder={t('register.business.passwordPlaceholder')}
+            required
+          />
+
+          <FormField
+            icon={FaPhone}
+            label={t('register.business.mobilePhone')}
+            id="mobilePhone"
+            name="mobilePhone"
+            type="tel"
+            value={business.mobilePhone}
+            onChange={handleChange}
+            placeholder={t('register.business.mobilePhonePlaceholder')}
+            pattern="[0-9]{11}"
+            required
+          />
+
+          <FormField
+            icon={FaPhone}
+            label={t('register.business.landlinePhone')}
+            id="landlinePhone"
+            name="landlinePhone"
+            type="tel"
+            value={business.landlinePhone}
+            onChange={handleChange}
+            placeholder={t('register.business.landlinePhonePlaceholder')}
+            pattern="[0-9]{8}"
+            required
+          />
+
+          <FormField
+            icon={FaMapMarkerAlt}
+            label={t('register.business.address')}
+            id="address"
+            name="address"
+            value={business.address}
+            onChange={handleChange}
+            placeholder={t('register.business.addressPlaceholder')}
+            required
+          />
 
           <div className="grid gap-4 mb-4">
-            <Label htmlFor="password">
-              <RiLockPasswordLine />
-              Password *
-            </Label>
-            <Input
-              type="password"
-              onChange={handleChange} 
-              value={business.password}
-              name="password"
-              className="bg-[#ECECF0]"
-              id="password"
-              placeholder="Create a Password"
-              required
-            />
-          </div>
-
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="mobilePhone">
-              <FaPhone />
-              Mobile Phone * (11 digits)
-            </Label>
-            <Input
-              type="tel"
-              onChange={handleChange}
-              value={business.mobilePhone}
-              name="mobilePhone"
-              className="bg-[#ECECF0]"
-              id="mobilePhone"
-              placeholder="01234567890"
-              pattern="[0-9]{11}"
-              required
-            />
-          </div>
-
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="landlinePhone">
-              <FaPhone />
-              Landline Phone * (8 digits)
-            </Label>
-            <Input
-              type="tel"
-              onChange={handleChange}
-              value={business.landlinePhone}
-              name="landlinePhone"
-              className="bg-[#ECECF0]"
-              id="landlinePhone"
-              placeholder="12345678"
-              pattern="[0-9]{8}"
-              required
-            />
-          </div>
-
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="address">
-              <FaMapMarkerAlt />
-              Address *
-            </Label>
-            <Input
-              onChange={handleChange}
-              value={business.address}
-              name="address"
-              className="bg-[#ECECF0]"
-              id="address"
-              placeholder="Enter Business Address"
-              required
-            />
-          </div>
-
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="paymentMethod">
+            <Label className="flex items-center gap-2 mb-2">
               <FaCreditCard />
-              Payment Method *
+              {t('register.business.paymentMethod')}
             </Label>
-            <select
-              onChange={handleChange}
-              value={business.paymentMethod}
-              name="paymentMethod"
-              className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-              id="paymentMethod"
-              required
-            >
-              <option value="">Select Payment Method</option>
-              <option value="cash">Cash</option>
-              <option value="credit-card">Credit Card</option>
-              <option value="wallet">Wallet</option>
-            </select>
+            <div className="space-y-3">
+              <label className="flex items-center gap-3 cursor-pointer p-3 bg-white dark:bg-[#37332f] border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-[#2b2825] transition-colors">
+                <input
+                  type="checkbox"
+                  checked={business.paymentMethod.includes('cash')}
+                  onChange={() => handlePaymentMethodChange('cash')}
+                  className="w-4 h-4 text-[#359487] bg-gray-100 border-gray-300 rounded focus:ring-[#359487] focus:ring-2"
+                />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('register.business.cash')}</span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer p-3 bg-white dark:bg-[#37332f] border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-[#2b2825] transition-colors">
+                <input
+                  type="checkbox"
+                  checked={business.paymentMethod.includes('credit-card')}
+                  onChange={() => handlePaymentMethodChange('credit-card')}
+                  className="w-4 h-4 text-[#359487] bg-gray-100 border-gray-300 rounded focus:ring-[#359487] focus:ring-2"
+                />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('register.business.creditCard')}</span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer p-3 bg-white dark:bg-[#37332f] border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-[#2b2825] transition-colors">
+                <input
+                  type="checkbox"
+                  checked={business.paymentMethod.includes('wallet')}
+                  onChange={() => handlePaymentMethodChange('wallet')}
+                  className="w-4 h-4 text-[#359487] bg-gray-100 border-gray-300 rounded focus:ring-[#359487] focus:ring-2"
+                />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('register.business.wallet')}</span>
+              </label>
+            </div>
           </div>
 
-          <div className="grid gap-4 mb-4">
-            <Label htmlFor="specialization">
-              <FaBriefcase />
-              Specialization
-            </Label>
-            <Input
-              onChange={handleChange}
-              value={business.specialization}
-              name="specialization"
-              className="bg-[#ECECF0]"
-              id="specialization"
-              placeholder="e.g., Dental Clinic, Medical Center"
-            />
-          </div>
+          <FormField
+            icon={FaBriefcase}
+            label={t('register.business.specialization')}
+            id="specialization"
+            name="specialization"
+            value={business.specialization}
+            onChange={handleChange}
+            placeholder={t('register.business.specializationPlaceholder')}
+          />
 
           {/* Optional Fields Section */}
           <div className="border-t pt-4 mt-4">
-            <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Optional Information</p>
+            <p className="text-lg font-semibold mb-4 text-[#29b7a4]">{t('register.business.optionalInfo')}</p>
             
             <div className="grid gap-4 mb-4">
               <Label htmlFor="profileImage">
-                Profile Image URL (Optional)
+                {t('register.business.profileImage')}
               </Label>
               <Input
               type="file"
                 onChange={handleChange}
                 value={business.profileImage}
                 name="profileImage"
-                className="bg-[#ECECF0]"
+                className="bg-white dark:bg-[#37332f] border border-gray-300 dark:border-gray-600"
                 id="profileImage"
-                placeholder="https://example.com/image.jpg"
+                placeholder={t('register.business.profileImagePlaceholder')}
               />
             </div>
 
             <div className="grid gap-4 mb-4">
               <Label htmlFor="businessImages">
-                Business Images URLs (Optional)
+                {t('register.business.businessImages')}
               </Label>
               <Input
               type="file"
                 onChange={handleChange}
                 value={business.businessImages}
                 name="businessImages"
-                className="bg-[#ECECF0]"
+                className="bg-white dark:bg-[#37332f] border border-gray-300 dark:border-gray-600"
                 id="businessImages"
-                placeholder="Separate multiple URLs with commas"
+                placeholder={t('register.business.businessImagesPlaceholder')}
               />
             </div>
 
-            <div className="border-t pt-4 mt-4">
-              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Working Time</p>
+            <WorkingTimeSection
+              workingHours={business.workingHours}
+              onChange={handleChange}
+              onDayChange={handleDayChange}
+              t={t}
+            />
 
-              <div className="grid gap-4 mb-4">
-                <Label>Working Days</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => (
-                    <label key={day} className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={business.workingHours.days.includes(day)}
-                        onChange={() => handleDayChange(day)}
-                        className="w-4 h-4"
-                      />
-                      <span>{day}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="openTime">
-                  Open Time
-                </Label>
-                <Input
-                type="time"
-                  onChange={handleChange}
-                  value={business.workingHours.openTime}
-                  name="openTime"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-                  id="openTime"
-                  placeholder="Open Time"
-                />
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="closeTime">
-                  Close Time
-                </Label>
-                <Input
-                type="time"
-                  onChange={handleChange}
-                  value={business.workingHours.closeTime}
-                  name="closeTime"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-                  id="closeTime"
-                  placeholder="Close Time"
-                />
-              </div>
-            </div>
-
-            <div className="border-t pt-4 mt-4">
-              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Service Information</p>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="serviceName">
-                  Service Name
-                </Label>
-                <Input
-                  onChange={handleChange}
-                  value={business.service.name}
-                  name="serviceName"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-                  id="serviceName"
-                  placeholder="Name of the service"
-                />
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="serviceDescription">
-                  Service Description
-                </Label>
-                <textarea
-                  onChange={handleChange}
-                  value={business.service.description}
-                  name="serviceDescription"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm min-h-[80px]"
-                  id="serviceDescription"
-                  placeholder="Description of the service"
-                />
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="servicePrice">
-                  Service Price
-                </Label>
-                <Input
-                  type="number"
-                  onChange={handleChange}
-                  value={business.service.price}
-                  name="servicePrice"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-                  id="servicePrice"
-                  placeholder="Price of the service"
-                />
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="serviceDuration">
-                  Service Duration
-                </Label>
-                <Input
-                  type="number"
-                  onChange={handleChange}
-                  value={business.service.duration}
-                  name="serviceDuration"
-                  className="bg-[#ECECF0] border border-input rounded-md px-3 py-2 text-sm"
-                  id="serviceDuration"
-                  placeholder="Average time for each client in minutes"
-                />
-              </div>
-            </div>
+            <ServiceSection
+              service={business.service}
+              onChange={handleChange}
+              t={t}
+            />
           </div>
 
-                      <div className="border-t pt-4 mt-4">
-              <p className="text-lg font-semibold mb-4 text-[#29b7a4]">Queue Settings</p>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="maxPatientsPerDay">
-                  Max Patients Per Day
-                </Label>
-                <Input
-                  onChange={handleChange}
-                  value={business.queueSettings.maxPatientsPerDay}
-                  name="maxPatientsPerDay"
-                  className="bg-[#ECECF0]"
-                  id="maxPatientsPerDay"
-                  type="number"
-                  placeholder="e.g., 20"
-                />
-              </div>
-
-              <div className="grid gap-4 mb-4">
-                <Label htmlFor="lastAppointmentTime">
-                  Last Appointment Time
-                </Label>
-                <Input
-                  onChange={handleChange}
-                  value={business.queueSettings.lastTimeToAppoint}
-                  name="lastAppointmentTime"
-                  className="bg-[#ECECF0]"
-                  id="lastAppointmentTime"
-                  type="time"
-                  placeholder="Last Appointment Time"
-                />
-              </div>
-            </div>
+          <QueueSettingsSection
+            queueSettings={business.queueSettings}
+            onChange={handleChange}
+            t={t}
+          />
 
           <Button type="submit" className="w-full my-3" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Create Account'}
+            {loading ? t('register.business.creatingAccount') : t('register.business.createBusinessAccount')}
           </Button>
 
           <div className="text-center">
             <span>
-              Already have an account?
+              {t('register.business.alreadyHaveAccount')}
               <Link className='font-bold' href="./">
-                {" "}Sign in
+                {" "}{t('register.business.signIn')}
               </Link>
             </span>
           </div>

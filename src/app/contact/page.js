@@ -1,156 +1,12 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, MessageSquare, Phone, Mail, Clock, HelpCircle, CheckCircle, AlertCircle } from 'lucide-react';
+import AnimatedInput from '@/components/ContactPage/AnimatedInput';
+import AnimatedTextarea from '@/components/ContactPage/AnimatedTextarea';
+import ContactInfoCard from '@/components/ContactPage/ContactInfoCard';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useTranslations } from '@/hooks/useTranslations';
 import emailjs from '@emailjs/browser';
-
-// Intersection Observer Hook
-const useIntersectionObserver = (options = {}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !isVisible) {
-        setIsVisible(true);
-      }
-    }, { threshold: 0.2, ...options });
-    
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-    
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-  
-  return [ref, isVisible];
-};
-
-// Animated Input Component
-const AnimatedInput = ({ label, name, type = "text", error, value, onChange }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  
-  return (
-    <div className="relative">
-      <label 
-        className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-          isFocused || value 
-            ? '-top-2.5 text-xs bg-white dark:bg-[#1E1D1A] px-2 text-[#359487] dark:text-[#C6FE02]' 
-            : 'top-3 text-gray-500 dark:text-gray-400'
-        }`}
-      >
-        {label} *
-      </label>
-      <input
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className={`
-          w-full rounded-lg p-3 pt-4
-          border-2 transition-all duration-300
-          ${error 
-            ? 'border-red-500 dark:border-red-500' 
-            : isFocused 
-              ? 'border-[#359487] dark:border-[#C6FE02]' 
-              : 'border-gray-300 dark:border-[#4A4744]'
-          }
-          dark:bg-[#1E1D1A] dark:text-white
-          focus:outline-none focus:ring-2 
-          ${error 
-            ? 'focus:ring-red-500/30' 
-            : 'focus:ring-[#359487]/30 dark:focus:ring-[#C6FE02]/30'
-          }
-          hover:border-[#359487] dark:hover:border-[#C6FE02]
-        `}
-      />
-      {error && (
-        <span className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-shake">
-          <AlertCircle size={14} />
-          {error}
-        </span>
-      )}
-    </div>
-  );
-};
-
-// Animated Textarea
-const AnimatedTextarea = ({ label, name, error, value, onChange }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  
-  return (
-    <div className="relative">
-      <label 
-        className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-          isFocused || value 
-            ? '-top-2.5 text-xs bg-white dark:bg-[#1E1D1A] px-2 text-[#359487] dark:text-[#C6FE02]' 
-            : 'top-3 text-gray-500 dark:text-gray-400'
-        }`}
-      >
-        {label} *
-      </label>
-      <textarea
-        name={name}
-        rows={7}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className={`
-          w-full rounded-lg p-3 pt-6
-          border-2 transition-all duration-300 resize-none
-          ${error 
-            ? 'border-red-500 dark:border-red-500' 
-            : isFocused 
-              ? 'border-[#359487] dark:border-[#C6FE02]' 
-              : 'border-gray-300 dark:border-[#4A4744]'
-          }
-          dark:bg-[#1E1D1A] dark:text-white
-          focus:outline-none focus:ring-2 
-          ${error 
-            ? 'focus:ring-red-500/30' 
-            : 'focus:ring-[#359487]/30 dark:focus:ring-[#C6FE02]/30'
-          }
-          hover:border-[#359487] dark:hover:border-[#C6FE02]
-        `}
-      />
-      {error && (
-        <span className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-shake">
-          <AlertCircle size={14} />
-          {error}
-        </span>
-      )}
-    </div>
-  );
-};
-
-// Contact Info Card
-const ContactInfoCard = ({ icon: Icon, title, content, delay = 0 }) => {
-  const [ref, isVisible] = useIntersectionObserver();
-  
-  return (
-    <div
-      ref={ref}
-      className={`flex items-start gap-4 mb-8 transition-all duration-500 ${
-        isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="bg-gradient-to-br from-[#359487] to-[#2a7569] dark:from-[#C6FE02] dark:to-[#a8d902] p-4 rounded-xl shadow-lg hover:scale-110 transition-transform duration-300">
-        <Icon size={24} className="text-white dark:text-black" />
-      </div>
-      <div>
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">{title}</p>
-        <p className="dark:text-white font-medium text-lg">{content}</p>
-      </div>
-    </div>
-  );
-};
+import { CheckCircle, Clock, HelpCircle, Mail, MessageSquare, Phone, Send } from 'lucide-react';
+import { useState } from 'react';
 
 // FAQ Item
 const FAQItem = ({ question, answer, delay = 0 }) => {
@@ -195,6 +51,7 @@ const FAQItem = ({ question, answer, delay = 0 }) => {
 };
 
 const Page = () => {
+  const { t } = useTranslations();
   const [formRef, formVisible] = useIntersectionObserver();
   const [toast, setToast] = useState({ show: false, type: "success", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -240,27 +97,27 @@ const Page = () => {
     let hasError = false;
 
     if (!nameRegex.test(firstName.trim())) {
-      newErrors.firstName = "Please enter a valid first name (3-30 characters).";
+      newErrors.firstName = t('contact.errors.firstName');
       hasError = true;
     }
 
     if (!nameRegex.test(lastName.trim())) {
-      newErrors.lastName = "Please enter a valid last name (3-30 characters).";
+      newErrors.lastName = t('contact.errors.lastName');
       hasError = true;
     }
 
     if (!emailRegex.test(email.trim())) {
-      newErrors.email = "Please enter a valid email address.";
+      newErrors.email = t('contact.errors.email');
       hasError = true;
     }
 
     if (!phoneRegex.test(phone.trim())) {
-      newErrors.phone = "Please enter a valid 11-digit phone number.";
+      newErrors.phone = t('contact.errors.phone');
       hasError = true;
     }
 
     if (message.trim().length < 10) {
-      newErrors.message = "Message should be at least 10 characters.";
+      newErrors.message = t('contact.errors.message');
       hasError = true;
     }
 
@@ -286,7 +143,7 @@ const Page = () => {
         "aFgvqEvdcPcxOsnQn" // Your EmailJS Public Key
       )
       .then(() => {
-        showToast("success", "Message sent successfully! We'll get back to you soon.");
+        showToast("success", t('contact.success'));
         setFormData({
           firstName: '',
           lastName: '',
@@ -298,7 +155,7 @@ const Page = () => {
       })
       .catch((error) => {
         console.error("EmailJS Error:", error);
-        showToast("error", "Failed to send message. Please try again later.");
+        showToast("error", t('contact.error'));
         setIsSubmitting(false);
       });
   };
@@ -308,10 +165,10 @@ const Page = () => {
       {/* Hero Section */}
       <div className="text-center pt-16 pb-12 px-4">
         <h1 className="text-[#359487] font-bold text-5xl md:text-7xl pb-6 dark:text-[#C6FE02] dark:drop-shadow-[0_0_20px_rgba(198,254,2,0.6)] animate-fade-in">
-          Get in Touch
+          {t('contact.title')}
         </h1>
         <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-fade-in-up">
-          Have questions? We're here to help. Reach out to us anytime.
+          {t('contact.subtitle')}
         </p>
       </div>
 
@@ -336,27 +193,27 @@ const Page = () => {
           >
             <div className="flex items-center gap-3 mb-8">
               <MessageSquare size={28} className="text-[#359487] dark:text-[#C6FE02]" />
-              <h2 className="text-2xl font-bold dark:text-white">Send Us a Message</h2>
+              <h2 className="text-2xl font-bold dark:text-white">{t('contact.title')}</h2>
             </div>
 
             <div>
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <AnimatedInput 
-                  label="First Name" 
+                  label={t('contact.form.firstName')}
                   name="firstName" 
                   error={errors.firstName}
                   value={formData.firstName}
                   onChange={handleChange}
                 />
                 <AnimatedInput 
-                  label="Last Name" 
+                  label={t('contact.form.lastName')}
                   name="lastName" 
                   error={errors.lastName}
                   value={formData.lastName}
                   onChange={handleChange}
                 />
                 <AnimatedInput 
-                  label="Email" 
+                  label={t('contact.form.email')}
                   name="email" 
                   type="email" 
                   error={errors.email}
@@ -364,7 +221,7 @@ const Page = () => {
                   onChange={handleChange}
                 />
                 <AnimatedInput 
-                  label="Phone Number" 
+                  label={t('contact.form.phone')}
                   name="phone" 
                   type="tel" 
                   error={errors.phone}
@@ -375,7 +232,7 @@ const Page = () => {
 
               <div className="mb-6">
                 <AnimatedTextarea 
-                  label="Message" 
+                  label={t('contact.form.message')}
                   name="message" 
                   error={errors.message}
                   value={formData.message}
@@ -391,12 +248,12 @@ const Page = () => {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-2 border-white dark:border-black border-t-transparent" />
-                    Sending...
+                    {t('contact.form.sending')}
                   </>
                 ) : (
                   <>
                     <Send size={20} />
-                    Send Message
+                    {t('contact.form.submit')}
                   </>
                 )}
               </button>
@@ -407,9 +264,9 @@ const Page = () => {
           <div className="bg-white dark:bg-[#2C2A27] rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-[#3A3734]">
             <h2 className="text-2xl font-bold mb-8 dark:text-white">Contact Information</h2>
             
-            <ContactInfoCard icon={Mail} title="Email" content="support@queuems.com" delay={0} />
-            <ContactInfoCard icon={Phone} title="Phone" content="+20 1012345678" delay={100} />
-            <ContactInfoCard icon={Clock} title="Business Hours" content="24 / 7" delay={200} />
+            <ContactInfoCard icon={Mail} title={t('contact.info.email.title')} content={t('contact.info.email.content')} delay={0} />
+            <ContactInfoCard icon={Phone} title={t('contact.info.phone.title')} content={t('contact.info.phone.content')} delay={100} />
+            <ContactInfoCard icon={Clock} title={t('contact.info.hours.title')} content={t('contact.info.hours.content')} delay={200} />
           </div>
         </div>
 
@@ -417,28 +274,28 @@ const Page = () => {
         <div className="mt-12 bg-white dark:bg-[#2B2927] rounded-3xl p-8 md:p-10 shadow-xl border border-gray-200 dark:border-[#3A3734]">
           <div className="flex items-center gap-3 mb-8">
             <HelpCircle size={28} className="text-[#359487] dark:text-[#C6FE02]" />
-            <h2 className="text-2xl font-bold dark:text-white">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold dark:text-white">{t('contact.faq.title')}</h2>
           </div>
 
           <div className="space-y-4">
             <FAQItem
-              question="How do I book an appointment?"
-              answer="Simply search for your desired service, select a time slot, and complete the booking process."
+              question={t('contact.faq.q1.question')}
+              answer={t('contact.faq.q1.answer')}
               delay={0}
             />
             <FAQItem
-              question="Can I cancel or reschedule my appointment?"
-              answer="Yes, you can cancel or reschedule up to 1 hour before the appointment."
+              question={t('contact.faq.q2.question')}
+              answer={t('contact.faq.q2.answer')}
               delay={100}
             />
             <FAQItem
-              question="How does the queue system work?"
-              answer="Our smart queue system assigns you a position and updates in real-time."
+              question={t('contact.faq.q3.question')}
+              answer={t('contact.faq.q3.answer')}
               delay={200}
             />
             <FAQItem
-              question="Is there a fee for using the service?"
-              answer="Basic appointments include a small fee. Priority options may cost extra."
+              question={t('contact.faq.q4.question')}
+              answer={t('contact.faq.q4.answer')}
               delay={300}
             />
           </div>

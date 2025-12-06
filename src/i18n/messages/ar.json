@@ -1,0 +1,501 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم"
+  },
+  "hero": {
+    "title": "تخطى الانتظار، احجز مكانك",
+    "subtitle": "إدارة الطوابير بذكاء",
+    "description": "ابحث واحجز مواعيد في العيادات والبنوك ومراكز الاتصالات والمزيد. أدر وقتك بكفاءة من خلال نظام الطوابير الذكي الخاص بنا.",
+    "bookAppointment": "احجز موعد",
+    "addBusiness": "أضف عملك"
+  },
+  "stats": {
+    "activeUsers": "مستخدم نشط",
+    "businesses": "الأعمال",
+    "uptime": "وقت التشغيل"
+  },
+  "services": {
+    "title": "الخدمات المتاحة",
+    "subtitle": "تصفح واحجز مكانك في مواقع مختلفة",
+    "aiPowered": "مدعوم بالذكاء الاصطناعي",
+    "search": "ابحث عن عيادات، بنوك، خدمات...",
+    "medical": {
+      "title": "العيادات الطبية",
+      "description": "احجز مواعيد مع الأطباء والمتخصصين بدون انتظار"
+    },
+    "banks": {
+      "title": "البنوك والمالية",
+      "description": "تخطى الطابور في البنوك والمؤسسات المالية"
+    },
+    "government": {
+      "title": "الخدمات الحكومية",
+      "description": "الوصول إلى الخدمات العامة بمواعيد مجدولة"
+    },
+    "telecom": {
+      "title": "مراكز الاتصالات",
+      "description": "احصل على الخدمة في منافذ الاتصالات بكفاءة"
+    }
+  },
+  "cta": {
+    "title": "هل أنت مستعد لتوفير الوقت؟",
+    "description": "انضم إلى آلاف المستخدمين الذين يديرون وقتهم بكفاءة باستخدام QuickQueue",
+    "button": "ابدأ الآن"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً بعودتك! إليك ما يحدث اليوم.",
+    "todaysPatients": "مرضى اليوم",
+    "inQueue": "في الطابور",
+    "completed": "مكتمل",
+    "avgWaitTime": "متوسط وقت الانتظار",
+    "profile": "الملف الشخصي",
+    "editProfile": "تعديل الملف الشخصي",
+    "saveChanges": "حفظ التغييرات",
+    "deleteAccount": "حذف الحساب",
+    "logout": "تسجيل الخروج"
+  },
+  "business": {
+    "businessName": "اسم العمل",
+    "email": "البريد الإلكتروني",
+    "mobilePhone": "رقم الهاتف المحمول",
+    "landlinePhone": "رقم الهاتف الأرضي",
+    "address": "العنوان",
+    "paymentMethod": "طريقة الدفع",
+    "specialization": "التخصص",
+    "workingTime": "أوقات العمل",
+    "services": "الخدمات",
+    "queueSettings": "إعدادات الطابور",
+    "accountStatus": "حالة الحساب",
+    "rating": "التقييم"
+  },
+  "common": {
+    "waiting": "في الانتظار",
+    "onSchedule": "في الموعد",
+    "better": "أفضل",
+    "search": "بحث",
+    "searching": "جاري البحث...",
+    "loading": "جاري التحميل...",
+    "verifyingAccess": "التحقق من الوصول..."
+  },
+  "about": {
+    "title": "عن QuickQueue",
+    "subtitle": "نحن نحول كيفية إدارة الشركات لتدفق العملاء وتحسين تجارب الخدمة. مهمتنا هي القضاء على إحباطات وقت الانتظار وزيادة الكفاءة التشغيلية إلى أقصى حد، مما يوفر تجربة أكثر سلاسة وإرضاءً للعملاء والشركات على حد سواء.",
+    "stats": {
+      "businesses": "الأعمال المسجلة",
+      "awards": "الجوائز",
+      "waitTime": "تقليل وقت الانتظار",
+      "uptime": "وقت تشغيل النظام"
+    },
+    "mission": {
+      "title": "مهمتنا",
+      "description": "نحن نؤمن بأنه لا ينبغي لأحد أن يضيع وقتًا ثمينًا في الوقوف في الطابور. من خلال الاستفادة من التكنولوجيا والابتكار، نقوم بتحويل الطوابير التقليدية إلى تجارب خدمة أكثر ذكاءً وكفاءة وسهولة في الوصول"
+    },
+    "vision": {
+      "title": "رؤيتنا",
+      "description": "نتصور مستقبلًا يكون فيه الانتظار في الطابور أمرًا عفا عليه الزمن، واستبداله بتجارب خدمة رقمية سلسة تعطي الأولوية للراحة والكفاءة."
+    },
+    "whyChooseUs": {
+      "title": "لماذا تختارنا",
+      "realTime": {
+        "title": "تحديثات فورية",
+        "description": "ابق على اطلاع بالإشعارات الفورية وحالة الطابور المباشرة."
+      },
+      "secure": {
+        "title": "آمن وموثوق",
+        "description": "بياناتك محمية بإجراءات أمان من الدرجة الأولى."
+      },
+      "multiLanguage": {
+        "title": "دعم متعدد اللغات",
+        "description": "تلبية احتياجات عملاء متنوعين من خلال واجهتنا متعددة اللغات."
+      },
+      "integration": {
+        "title": "تكامل سهل",
+        "description": "تكامل سلس مع أنظمتك وسير العمل الحالي."
+      },
+      "scheduling": {
+        "title": "جدولة ذكية",
+        "description": "تحسين حجوزات المواعيد بميزات جدولة ذكية."
+      },
+      "analytics": {
+        "title": "لوحة تحليلات",
+        "description": "احصل على رؤى شاملة مع أدوات التحليل وإعداد التقارير."
+      }
+    },
+    "values": {
+      "title": "قيمنا",
+      "innovation": {
+        "title": "الابتكار",
+        "description": "دائمًا نتجاوز الحدود"
+      },
+      "customerFirst": {
+        "title": "العميل أولاً",
+        "description": "نجاحك هو نجاحنا"
+      },
+      "reliability": {
+        "title": "الموثوقية",
+        "description": "خدمة متسقة وموثوقة"
+      },
+      "transparency": {
+        "title": "الشفافية",
+        "description": "تواصل مفتوح وصادق"
+      }
+    }
+  },
+  "clinics": {
+    "title": "تصفح الأعمال",
+    "subtitle": "ابحث واحجز مواعيد في العيادات والمستشفيات والمراكز الطبية بالقرب منك",
+    "searchPlaceholder": "ابحث بالاسم أو الموقع أو التخصص...",
+    "allCategories": "جميع الفئات",
+    "showing": "عرض",
+    "of": "من",
+    "businessesText": "الأعمال",
+    "loadingBusinesses": "جاري تحميل الأعمال...",
+    "noBusinessesFound": "لم يتم العثور على أعمال",
+    "tryAdjusting": "حاول تعديل البحث أو الفلاتر",
+    "openNow": "مفتوح الآن",
+    "closed": "مغلق",
+    "viewDetails": "عرض التفاصيل",
+    "categories": {
+      "all": "جميع الفئات",
+      "medical": "طبي",
+      "dental": "أسنان",
+      "pharmacy": "صيدلية",
+      "laboratory": "مختبر",
+      "clinic": "عيادة",
+      "hospital": "مستشفى"
+    }
+  },
+  "login": {
+    "title": "مرحبًا بعودتك",
+    "customerTab": "تسجيل دخول العميل",
+    "businessTab": "تسجيل دخول الأعمال",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "loginButton": "تسجيل الدخول",
+    "loggingIn": "جاري تسجيل الدخول...",
+    "noAccount": "ليس لديك حساب؟",
+    "signUp": "سجل الآن",
+    "orContinueWith": "أو تابع مع",
+    "googleLogin": "تسجيل الدخول باستخدام Google",
+    "errors": {
+      "invalidCredentials": "بريد إلكتروني أو كلمة مرور غير صحيحة",
+      "wrongRole": "هذا الحساب غير مسجل كـ",
+      "serverError": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "userDashboard": {
+    "greeting": "مرحبًا",
+    "date": "اليوم هو",
+    "tabs": {
+      "dashboard": "لوحة التحكم",
+      "tickets": "تذاكري",
+      "profile": "الملف الشخصي",
+      "reviews": "التقييمات",
+      "analytics": "التحليلات"
+    },
+    "stats": {
+      "totalTickets": "إجمالي التذاكر",
+      "activeTickets": "التذاكر النشطة",
+      "completedTickets": "مكتمل",
+      "upcomingAppointments": "القادمة"
+    },
+    "searchPlaceholder": "ابحث عن الأعمال...",
+    "noTickets": "لم يتم العثور على تذاكر",
+    "ticketStatus": {
+      "waiting": "في الانتظار",
+      "called": "تم الاتصال",
+      "served": "تم الخدمة",
+      "cancelled": "ملغى"
+    },
+    "editProfile": "تعديل الملف الشخصي",
+    "saveChanges": "حفظ التغييرات",
+    "deleteAccount": "حذف الحساب",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف حسابك؟",
+    "deleteWarning": "لا يمكن التراجع عن هذا الإجراء.",
+    "cancel": "إلغاء",
+    "confirm": "نعم، احذف",
+    "reviews": {
+      "title": "تقييماتي",
+      "subtitle": "التقييمات التي كتبتها للأعمال",
+      "noReviews": "لم تكتب أي تقييمات بعد",
+      "writeReview": "اكتب تقييماً",
+      "business": "العمل",
+      "rating": "التقييم",
+      "comment": "التعليق",
+      "date": "التاريخ",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "appointments": {
+      "title": "مواعيدي",
+      "subtitle": "إدارة مواعيدك القادمة والسابقة",
+      "noAppointments": "لم يتم العثور على مواعيد",
+      "upcoming": "المواعيد القادمة",
+      "past": "المواعيد السابقة",
+      "businessName": "العمل",
+      "dateTime": "التاريخ والوقت",
+      "status": "الحالة",
+      "cancel": "إلغاء",
+      "reschedule": "إعادة جدولة",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "payments": {
+      "title": "سجل الدفعات",
+      "subtitle": "عرض سجل المعاملات الخاصة بك",
+      "noPayments": "لا يوجد سجل دفعات متاح",
+      "transactionId": "معرف المعاملة",
+      "business": "العمل",
+      "amount": "المبلغ",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "method": "طريقة الدفع",
+      "viewReceipt": "عرض الإيصال",
+      "statusTypes": {
+        "completed": "مكتمل",
+        "pending": "قيد الانتظار",
+        "failed": "فشل",
+        "refunded": "مسترد"
+      }
+    }
+  },
+  "adminDashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحبًا بعودتك! إليك ما يحدث اليوم.",
+    "salesOverview": "نظرة عامة على المبيعات",
+    "topProducts": "أفضل المنتجات",
+    "recentActivity": "النشاط الأخير",
+    "user": "المستخدم",
+    "action": "الإجراء",
+    "time": "الوقت",
+    "status": "الحالة",
+    "sales": "مبيعات",
+    "category": "الفئة"
+  },
+  "notFound": {
+    "button": "العودة إلى الصفحة الرئيسية"
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "subtitle": "هل لديك أسئلة؟ نحن هنا للمساعدة! تواصل معنا وسنعود إليك في أقرب وقت ممكن.",
+    "form": {
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "message": "رسالتك",
+      "submit": "إرسال الرسالة",
+      "sending": "جاري الإرسال..."
+    },
+    "info": {
+      "email": {
+        "title": "راسلنا",
+        "content": "support@quickqueue.com"
+      },
+      "phone": {
+        "title": "اتصل بنا",
+        "content": "+1 (555) 123-4567"
+      },
+      "hours": {
+        "title": "ساعات العمل",
+        "content": "الإثنين - الجمعة: 9 صباحًا - 6 مساءً"
+      }
+    },
+    "faq": {
+      "title": "الأسئلة الشائعة",
+      "q1": {
+        "question": "كيف أحجز موعدًا؟",
+        "answer": "ببساطة ابحث عن عمل، حدد فترة الوقت المفضلة لديك، وأكد حجزك. ستتلقى تأكيدًا فوريًا."
+      },
+      "q2": {
+        "question": "هل يمكنني الإلغاء أو إعادة الجدولة؟",
+        "answer": "نعم! يمكنك إدارة مواعيدك من لوحة التحكم الخاصة بك. الإلغاء أو إعادة الجدولة حتى ساعتين قبل موعدك."
+      },
+      "q3": {
+        "question": "هل الخدمة مجانية؟",
+        "answer": "نعم، QuickQueue مجاني للعملاء. تدفع الشركات رسوم اشتراك لاستخدام منصتنا."
+      },
+      "q4": {
+        "question": "كيف أحصل على الإشعارات؟",
+        "answer": "قم بتفعيل إشعارات المتصفح عند المطالبة، وسنرسل لك تحديثات فورية حول موضعك في الطابور."
+      }
+    },
+    "errors": {
+      "firstName": "الرجاء إدخال اسم أول صحيح (3-30 حرفًا).",
+      "lastName": "الرجاء إدخال اسم عائلة صحيح (3-30 حرفًا).",
+      "email": "الرجاء إدخال بريد إلكتروني صحيح.",
+      "phone": "الرجاء إدخال رقم هاتف صحيح مكون من 11 رقمًا.",
+      "message": "يجب أن تكون الرسالة 10 أحرف على الأقل."
+    },
+    "success": "تم إرسال الرسالة بنجاح! سنعود إليك قريبًا.",
+    "error": "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى."
+  },
+  "register": {
+    "customer": {
+      "title": "إنشاء حساب",
+      "subtitle": "سجل لحجز المواعيد.",
+      "fullName": "الاسم الكامل *",
+      "email": "البريد الإلكتروني *",
+      "phone": "رقم الهاتف * (11 رقم)",
+      "password": "كلمة المرور *",
+      "createAccount": "إنشاء حساب",
+      "signUpWithGoogle": "التسجيل عبر جوجل",
+      "orContinueWith": "أو التسجيل عبر",
+      "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "namePlaceholder": "أدخل اسمك",
+      "emailPlaceholder": "email@example.com",
+      "phonePlaceholder": "01234567890",
+      "passwordPlaceholder": "أنشئ كلمة مرور"
+    },
+    "business": {
+      "title": "إنشاء حساب تجاري",
+      "subtitle": "سجل عملك لإدارة الطوابير.",
+      "businessName": "اسم العمل *",
+      "businessEmail": "البريد الإلكتروني للعمل *",
+      "password": "كلمة المرور *",
+      "mobilePhone": "هاتف محمول * (11 رقم)",
+      "landlinePhone": "الهاتف الأرضي * (8 أرقام)",
+      "address": "العنوان *",
+      "paymentMethod": "طريقة الدفع *",
+      "selectPaymentMethod": "اختر طرق الدفع",
+      "cash": "نقدي",
+      "creditCard": "بطاقة ائتمان",
+      "wallet": "محفظة",
+      "specialization": "التخصص",
+      "optionalInfo": "معلومات اختيارية",
+      "profileImage": "رابط صورة الملف الشخصي (اختياري)",
+      "businessImages": "روابط صور العمل (اختياري)",
+      "workingDays": "أيام العمل *",
+      "openTime": "وقت الافتتاح *",
+      "closeTime": "وقت الإغلاق *",
+      "serviceName": "اسم الخدمة (اختياري)",
+      "serviceDescription": "وصف الخدمة (اختياري)",
+      "servicePrice": "سعر الخدمة (اختياري)",
+      "serviceDuration": "مدة الخدمة بالدقائق (اختياري)",
+      "maxPatientsPerDay": "الحد الأقصى للمرضى في اليوم (اختياري)",
+      "lastAppointmentTime": "وقت آخر موعد (اختياري)",
+      "createBusinessAccount": "إنشاء حساب تجاري",
+      "businessNamePlaceholder": "أدخل اسم العمل",
+      "emailPlaceholder": "email@example.com",
+      "passwordPlaceholder": "أنشئ كلمة مرور",
+      "mobilePhonePlaceholder": "01234567890",
+      "landlinePhonePlaceholder": "12345678",
+      "addressPlaceholder": "أدخل عنوان العمل",
+      "specializationPlaceholder": "مثال: عيادة أسنان، مركز طبي",
+      "profileImagePlaceholder": "https://example.com/image.jpg",
+      "businessImagesPlaceholder": "افصل عدة روابط بفواصل",
+      "workingTime": "أوقات العمل",
+      "serviceInfo": "معلومات الخدمة",
+      "queueSettings": "إعدادات الطابور",
+      "saturday": "السبت",
+      "sunday": "الأحد",
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "serviceNamePlaceholder": "اسم الخدمة",
+      "serviceDescriptionPlaceholder": "وصف الخدمة",
+      "servicePricePlaceholder": "سعر الخدمة",
+      "serviceDurationPlaceholder": "متوسط الوقت لكل عميل بالدقائق",
+      "maxPatientsPlaceholder": "مثال: 20",
+      "lastAppointmentPlaceholder": "وقت آخر موعد",
+      "creatingAccount": "جاري إنشاء الحساب...",
+      "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول"
+    }
+  },
+  "businessDashboard": {
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "queueManagement": "إدارة الطابور",
+      "patients": "المرضى",
+      "schedule": "الجدول الزمني",
+      "payments": "المدفوعات",
+      "reviews": "التقييمات",
+      "profile": "الملف الشخصي"
+    },
+    "dashboard": {
+      "title": "لوحة التحكم",
+      "todaysPatients": "مرضى اليوم",
+      "inQueue": "في الطابور",
+      "completed": "مكتمل",
+      "avgWaitTime": "متوسط وقت الانتظار",
+      "queueControl": "التحكم في الطابور",
+      "pauseQueue": "إيقاف الطابور مؤقتاً",
+      "resumeQueue": "استئناف الطابور",
+      "addWalkin": "إضافة مريض",
+      "currentServing": "العميل الحالي",
+      "nextInLine": "التالي في الطابور",
+      "totalInQueue": "إجمالي الطابور",
+      "estimatedWait": "الوقت المتوقع",
+      "open": "مفتوح",
+      "paused": "متوقف",
+      "none": "لا يوجد",
+      "patients": "مرضى",
+      "minutes": "دقيقة",
+      "patientQueue": "قائمة المرضى",
+      "all": "الكل",
+      "waitingCount": "في الانتظار",
+      "called": "تم الاستدعاء",
+      "inProgress": "قيد التنفيذ",
+      "paid": "مدفوع",
+      "cash": "نقدي",
+      "estimated": "متوقع",
+      "capacityLeft": "السعة المتبقية"
+    },
+    "queueManagement": {
+      "title": "إدارة الطابور",
+      "subtitle": "إدارة التذاكر وخدمة العملاء",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "waiting": "في الانتظار",
+      "serving": "قيد الخدمة",
+      "completed": "مكتمل",
+      "avgWait": "متوسط الانتظار",
+      "currentlyServing": "قيد الخدمة حالياً",
+      "ticketNumber": "رقم التذكرة",
+      "markAsServed": "تم الانتهاء",
+      "callNext": "استدعاء التذكرة التالية",
+      "calling": "جاري الاستدعاء...",
+      "waitingQueue": "قائمة الانتظار",
+      "beingServed": "قيد الخدمة",
+      "noWaitingTickets": "لا توجد تذاكر في الانتظار",
+      "noServingTickets": "لا توجد تذاكر قيد الخدمة",
+      "guest": "ضيف",
+      "active": "نشط",
+      "complete": "إكمال",
+      "ticket": "تذكرة"
+    },
+    "profile": {
+      "title": "ملف العمل",
+      "editProfile": "تعديل الملف الشخصي",
+      "saveChanges": "حفظ التغييرات",
+      "deleteAccount": "حذف الحساب",
+      "businessName": "اسم العمل",
+      "email": "البريد الإلكتروني",
+      "mobilePhone": "الهاتف المحمول",
+      "landlinePhone": "الهاتف الأرضي",
+      "address": "العنوان",
+      "paymentMethod": "طريقة الدفع",
+      "specialization": "التخصص",
+      "queueSettings": "إعدادات الطابور",
+      "notProvided": "غير متوفر",
+      "notSpecified": "غير محدد",
+      "noQueueSettings": "لم يتم تكوين إعدادات الطابور",
+      "workingDays": "أيام العمل",
+      "openTime": "وقت الافتتاح",
+      "closeTime": "وقت الإغلاق",
+      "maxPatients": "أقصى عدد للمرضى يومياً"
+    },
+    "placeholder": {
+      "underDevelopment": "هذا القسم قيد التطوير."
+    }
+  }
+}

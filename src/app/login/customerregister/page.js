@@ -1,24 +1,31 @@
 "use client";
-import { useState } from 'react'
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from '@/components/ui/button'
-import { MdOutlineMailLock } from "react-icons/md"
-import { RiLockPasswordLine } from "react-icons/ri"
-import { IoPersonOutline } from "react-icons/io5"
-import { FaPhone } from "react-icons/fa6"
-import Link from 'next/link'
-import Image from 'next/image'
+import { Button } from '@/components/ui/button';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useTranslations } from '@/hooks/useTranslations';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { FaPhone } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
+import { IoPersonOutline } from "react-icons/io5";
+import { MdOutlineMailLock } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslations();
   const API = 'http://localhost:5000/api/v1/auth/register';
   const [user, setUser] = useState({name: '', email: '', password: '', phone: ''});
   const [error, setError] = useState('');
   
   const handleChange = (e) => {
     setUser({...user, [e.target.name]: e.target.value});
+  }
+
+  const handleGoogleSignup = () => {
+    window.location.href = 'http://localhost:5000/api/v1/auth/google';
   }
 
   const handleRegister = async () => {
@@ -63,8 +70,8 @@ export default function Page() {
 
       <div className="flex flex-col justify-center px-10 py-12 text-center md:text-left bg-white xl:w-2/3 w-full mx-auto dark:bg-[#221F1B]">
 
-        <p className="text-3xl font-bold mb-2 text-[#29b7a4] text-center">Create Account</p>
-        <span className="block mb-8 text-gray-500 text-center">Sign up to book appointments.</span>
+        <p className="text-3xl font-bold mb-2 text-[#29b7a4] text-center">{t('register.customer.title')}</p>
+        <span className="block mb-8 text-gray-500 text-center">{t('register.customer.subtitle')}</span>
 
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded w-full text-center">
@@ -75,7 +82,7 @@ export default function Page() {
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-Name">
             <IoPersonOutline />
-            Full Name *
+            {t('register.customer.fullName')}
           </Label>
           <Input
             onChange={handleChange}
@@ -83,14 +90,14 @@ export default function Page() {
             name="name"
             className="bg-[#ECECF0]"
             id="Customer-Name"
-            placeholder="Enter Your Name"
+            placeholder={t('register.customer.namePlaceholder')}
           />
         </div>
 
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-email">
             <MdOutlineMailLock />
-            Email *
+            {t('register.customer.email')}
           </Label>
           <Input
             type="email"
@@ -99,14 +106,14 @@ export default function Page() {
             name="email"
             className="bg-[#ECECF0]"
             id="Customer-email"
-            placeholder="email@example.com"
+            placeholder={t('register.customer.emailPlaceholder')}
           />
         </div>
 
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-Phone">
             <FaPhone />
-            Phone Number *(11 number)
+            {t('register.customer.phone')}
           </Label>
           <Input
             type="tel"
@@ -115,14 +122,14 @@ export default function Page() {
             name="phone"
             className="bg-[#ECECF0]"
             id="Customer-Phone"
-            placeholder="01234567890"
+            placeholder={t('register.customer.phonePlaceholder')}
           />
         </div>
 
         <div className="grid gap-4 mb-4">
           <Label htmlFor="Customer-password">
             <RiLockPasswordLine />
-            Password *
+            {t('register.customer.password')}
           </Label>
           <Input
             type="password"
@@ -131,19 +138,37 @@ export default function Page() {
             name="password"
             className="bg-[#ECECF0]"
             id="Customer-password"
-            placeholder="Create a Password"
+            placeholder={t('register.customer.passwordPlaceholder')}
           />
         </div>
 
         <Button className="w-full my-3" onClick={handleRegister}>
-          Create Account
+          {t('register.customer.createAccount')}
+        </Button>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white dark:bg-[#221F1B] text-gray-500 dark:text-gray-400">{t('register.customer.orContinueWith')}</span>
+          </div>
+        </div>
+
+        <Button 
+          type="button"
+          onClick={handleGoogleSignup}
+          className="w-full bg-white dark:bg-[#37332f] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#2b2825] flex items-center justify-center gap-3 mb-4"
+        >
+          <FcGoogle size={20} />
+          {t('register.customer.signUpWithGoogle')}
         </Button>
 
         <div className="text-center">
           <span>
-            Already have an account?
+            {t('register.customer.alreadyHaveAccount')}
             <Link className='font-bold' href="./">
-              {" "}Sign in
+              {" "}{t('register.customer.signIn')}
             </Link>
           </span>
         </div>

@@ -1,8 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "next-themes";
-import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "next-themes";
+import { Geist, Geist_Mono } from "next/font/google";
+import Navbar from "../components/Navbar";
+import "./globals.css";
 import Providers from "./providers";
 
 const geistSans = Geist({
@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <Providers>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

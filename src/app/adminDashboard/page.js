@@ -1,18 +1,21 @@
-import React from 'react'
-import { GrMoney } from "react-icons/gr";
-import { FaUsersRays } from "react-icons/fa6";
-import { TbUserShield } from "react-icons/tb";
-import { FaChartLine } from "react-icons/fa6";
-import UnitCard from '@/components/UnitCard';
-import { v4 as uuid } from 'uuid';
+"use client";
+
+import ProtectedRoute from '@/components/ProtectedRoute';
 import SalesOverview from '@/components/SalesOverview';
+import UnitCard from '@/components/UnitCard';
+import { useTranslations } from '@/hooks/useTranslations';
+import { FaChartLine, FaUsersRays } from "react-icons/fa6";
+import { GrMoney } from "react-icons/gr";
+import { TbUserShield } from "react-icons/tb";
+import { v4 as uuid } from 'uuid';
 
 const icons =[<GrMoney />, <FaUsersRays />, <TbUserShield />, <FaChartLine />]
-export default async function page() {
+export default function AdminDashboard() {
+  const { t } = useTranslations();
 
-  let response = await fetch("http://localhost:5000/api/v1/admin/admin/dashboard",{credentials:"include"});
-  let data = await response.json();
-  console.log(data)
+  // let response = await fetch("http://localhost:5000/api/v1/admin/admin/dashboard",{credentials:"include"});
+  // let data = await response.json();
+  // console.log(data)
 
 // const [loading, setLoading] = useState(true);
 
@@ -71,11 +74,12 @@ const statusClasses = {
 };
 
   return (
+  <ProtectedRoute allowedRoles={['admin']}>
   <div className="min-h-screen  bg-[#F3F3F3] dark:bg-[#221F1B] text-black dark:text-[white] p-6 container mx-auto">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('adminDashboard.title')}</h1>
         <p className="text-gray-600 dark:text-gray-100 mt-1">
-          Welcome back! Here's what's happening today.
+          {t('adminDashboard.welcome')}
         </p>
       </div>
       <div className='flex flex-wrap justify-center gap-6'>
@@ -88,14 +92,14 @@ const statusClasses = {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 w-full md:w-[85%] mx-auto">
          <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-6">
-            Sales Overview
+            {t('adminDashboard.salesOverview')}
           </h2>
           <SalesOverview/>
           </div>
 
             <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-6">
-            Top Products
+            {t('adminDashboard.topProducts')}
           </h2>
           <div className="space-y-4">
             {topProducts.map((product, i) => (
@@ -120,7 +124,7 @@ const statusClasses = {
                   <p className="text-sm font-bold text-gray-900">
                     {product.sales}
                   </p>
-                  <p className="text-xs text-gray-500">sales</p>
+                  <p className="text-xs text-gray-500">{t('adminDashboard.sales')}</p>
                 </div>
               </div>
             ))}
@@ -130,23 +134,23 @@ const statusClasses = {
 
          <div className="bg-white rounded-lg shadow p-6 w-full md:w-[85%] mx-auto">
         <h2 className="text-xl font-bold text-gray-900 mb-6">
-          Recent Activity
+          {t('adminDashboard.recentActivity')}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200">
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
-                  User
+                  {t('adminDashboard.user')}
                 </th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
-                  Action
+                  {t('adminDashboard.action')}
                 </th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
-                  Time
+                  {t('adminDashboard.time')}
                 </th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
-                  Status
+                  {t('adminDashboard.status')}
                 </th>
               </tr>
             </thead>
@@ -190,5 +194,6 @@ const statusClasses = {
 
 
 </div>
+  </ProtectedRoute>
   );
 }

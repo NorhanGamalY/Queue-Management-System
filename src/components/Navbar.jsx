@@ -1,18 +1,20 @@
 "use client";
-import React, { useState, useEffect } from 'react'
-import ThemeToggle from './ThemeToggle'
-import { Button } from './ui/button'
-import { FaArrowRight } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
+import { useTranslations } from '@/hooks/useTranslations';
+import { Popover } from "flowbite-react";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Popover } from "flowbite-react";
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { BiLogOut } from "react-icons/bi";
+import { FaArrowRight } from "react-icons/fa";
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
+import { Button } from './ui/button';
 
 
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
+  const { t } = useTranslations();
   const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -65,7 +67,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex justify-between min-h-20 items-center px-6">
+      <div className="sticky top-0 z-50 bg-white/95 dark:bg-[#221F1B]/95 backdrop-blur-sm shadow-sm flex justify-between min-h-20 items-center px-6">
 
         <Link href="/" >
           <h1 className='text-[#359487] dark:text-[#C6FE02] font-bold text-xl md:text-2xl'>
@@ -76,9 +78,9 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <div className="hidden md:flex justify-between items-center gap-3">
             <ul className='flex me-5 text-[17px] cursor-pointer'>
-              <Link href="/"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Home</li></Link>
-              <Link href="/about"><li className='mx-5 hover:text-[#359487] dark:hover:text-[#C6FE02]'>About</li></Link>
-              <Link href="/contact"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li></Link>
+              <Link href="/"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.home')}</li></Link>
+              <Link href="/about"><li className='mx-5 hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.about')}</li></Link>
+              <Link href="/contact"><li className='hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.contact')}</li></Link>
             </ul>
 
             {!loading && (
@@ -98,7 +100,7 @@ export default function Navbar() {
   <div id="dropdownInformation" className="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-72">
     <div className="p-2">
       <div className="flex items-center px-2.5 p-2 space-x-1.5 text-sm bg-neutral-secondary-strong rounded">
-        <img height="{8}" width="{8}" classname="rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
+        <img height="{8}" width="{8}" className="rounded-full" src="https://ui-avatars.com/api/?name=User&background=359487&color=fff" alt="User avatar" />
         <div className="text-sm">
           <div className="font-medium text-heading">Bonnie Green</div>
           <div className="truncate text-body">name@flowbite.com</div>
@@ -178,13 +180,18 @@ export default function Navbar() {
                         </div>
                         <div className="space-y-2">
                           <Link 
-                            href="/business" 
+                            href={
+                              userData?.role === 'user' ? '/user' :
+                              userData?.role === 'business' ? '/business' :
+                              userData?.role === 'admin' ? '/adminDashboard' :
+                              '/'
+                            }
                             className="block w-full px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:bg-[#359487] hover:text-white dark:hover:bg-[#C6FE02] dark:hover:text-gray-900 transition-colors duration-200"
                             onClick={(e) => {
                               e.stopPropagation();
                             }}
                           >
-                            Dashboard
+                            {t('nav.dashboard')}
                           </Link>
                         </div>
                         <div className="space-y-2">
@@ -195,7 +202,7 @@ export default function Navbar() {
                               e.stopPropagation();
                             }}
                           >
-                            Logout
+                            {t('nav.logout')}
                           </p>
                         </div>
                       </div>
@@ -218,13 +225,14 @@ export default function Navbar() {
               ) : (
                 <Link href="/login" >
                   <Button className="my-5 bg-[#359487] dark:bg-white">
-                    Login <FaArrowRight />
+                    {t('nav.login')} <FaArrowRight />
                   </Button>
                 </Link>
               )
             )}
           </div>
 
+            <LanguageSwitcher />
             <ThemeToggle />
 
           <button
@@ -252,24 +260,24 @@ export default function Navbar() {
         <div className="md:hidden w-full">
           <ul className="flex flex-col font-medium mt-4 pt-4 bg-neutral-secondary-soft space-y-2 border-t border-default px-4 pb-4">
             <Link href="/" onClick={() => setIsOpen(false)}>
-              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>Home</li>
+              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.home')}</li>
             </Link>
             <Link href="/about" onClick={() => setIsOpen(false)}>
-              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>About</li>
+              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.about')}</li>
             </Link>
             <Link href="/contact" onClick={() => setIsOpen(false)}>
-              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>Contact</li>
+              <li className='py-2 text-heading hover:text-[#359487] dark:hover:text-[#C6FE02]'>{t('nav.contact')}</li>
             </Link>
 
             {!loading && (
               isAuthenticated ? (
                 <Button onClick={() => { handleLogout(); setIsOpen(false); }} className="my-3 w-full bg-red-500 hover:bg-red-600 flex justify-center">
-                  Logout <BiLogOut />
+                  {t('nav.logout')} <BiLogOut />
                 </Button>
               ) : (
                 <Link href="/login" onClick={() => setIsOpen(false)}>
                   <Button className="my-3 w-full bg-[#359487] dark:bg-white flex justify-center">
-                    Login <FaArrowRight />
+                    {t('nav.login')} <FaArrowRight />
                   </Button>
                 </Link>
               )
